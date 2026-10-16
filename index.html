@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a0c18">
+  <meta name="description" content="Cursed University: A four-year, six-character, tabletop adventure in assessment redesign, AI friction, and meaningful learning.">
+  <title>Cursed University | The Degree of Understanding</title>
+  <!-- Self-contained GitHub Pages edition: HTML, CSS, JavaScript and scenarios bundled in this file. -->
+  
+  
+  
+<style>
+:root{--bg:#090c18;--panel:#111724;--panel2:#181f2e;--cream:#f4e7c8;--gold:#f0ca7e;--muted:#b4b5bd;--teal:#8fe4d2;--edge:#766343;--purple:#b3a3e9;--red:#ec9c97;--shadow:0 24px 70px #0009}
+*{box-sizing:border-box}html{font-size:16px}body{margin:0;background:var(--bg);color:var(--cream);min-height:100vh;font-family:'DM Sans',system-ui,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:default}h1,h2,h3,h4,p{margin-top:0}h1,h2,h3{font-family:Cinzel,Georgia,serif}h2{line-height:1.2}a{color:var(--gold)}.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap} .hidden{display:none!important}
+.screen{display:none;min-height:100vh;position:relative;padding:58px 32px 44px}.screen.active{display:block;animation:fadeIn .45s ease-out}#welcomeScreen.active,#rollScreen.active,#revealScreen.active,#victoryScreen.active{display:flex;align-items:center;justify-content:center}#welcomeScreen{background:radial-gradient(ellipse at 50% 44%,#283749 0%,#0b1323 50%,#080b15 92%)}#rollScreen,#revealScreen{background:radial-gradient(circle at 75% 30%,#2b2e49,#0a0e1b 68%)}.weather-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}.mist{position:absolute;width:90vw;height:23vh;top:64%;left:-30%;opacity:.16;background:radial-gradient(ellipse,rgba(173,173,190,.33),transparent 70%);filter:blur(24px);animation:drift 19s ease-in-out infinite alternate}.mist-b{top:78%;left:45%;animation-delay:-7s}.screen>*{position:relative;z-index:1}
+.global-bar{position:sticky;z-index:60;top:0;display:flex;align-items:center;gap:22px;justify-content:space-between;padding:11px 24px;border-bottom:1px solid #6d5a3c;background:rgba(11,14,26,.96);backdrop-filter:blur(10px);box-shadow:0 5px 25px #0005}.brand-button{border:0;background:none;color:var(--gold);font:600 17px Cinzel,serif;letter-spacing:.08em;white-space:nowrap}.global-middle{display:flex;gap:20px;color:#cbcbce;font-size:12px}.global-right{display:flex;align-items:center;gap:12px;color:var(--teal)}.global-right strong{font-family:Cinzel,Georgia,serif;font-size:14px;white-space:nowrap}.screen:not(#welcomeScreen):not(#rollScreen):not(#revealScreen):not(#doorScreen){min-height:calc(100vh - 59px)}
+.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.23em;color:var(--gold);text-transform:uppercase;font-weight:800}.display-title{font:700 clamp(28px,4.5vw,53px)/1.13 Cinzel,Georgia,serif;color:#f5e2b4;letter-spacing:.016em;margin:12px 0 16px}.center-wrap{width:min(1080px,100%);margin:0 auto}.center-wrap.narrow{width:min(730px,100%)}.screen-intro{font-size:17px;line-height:1.65;color:#ced0d8;max-width:800px}.lead{font:500 clamp(17px,2.2vw,23px) Cinzel,serif;color:#d5cfda;letter-spacing:.09em}.cta{border:1px solid #fff0c7;border-radius:7px;color:#211b15;background:linear-gradient(120deg,#f6dc9a,#cda25d);font-family:Cinzel,Georgia,serif;font-weight:800;font-size:14px;letter-spacing:.03em;min-height:49px;padding:12px 20px;box-shadow:inset 0 2px #fff6d5a0,0 8px 25px #0005;transition:filter .18s,transform .18s}.cta:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-2px)}.fill{width:100%}.minor-btn{border:1px solid #8b7b63;background:#1b2432;color:var(--cream);padding:10px 14px;border-radius:6px;font-size:13px;font-weight:700}.minor-btn:hover{background:#304052}.panel{background:linear-gradient(140deg,rgba(24,31,46,.98),rgba(13,20,33,.98));border:1px solid #766343;border-radius:12px;box-shadow:var(--shadow)}.panel-heading{padding:12px 18px;border-bottom:1px solid #63523e;background:linear-gradient(90deg,#333044,#1a2033);font:700 13px Cinzel,Georgia,serif;letter-spacing:.09em;color:#ffe7ae}.quiet{font-size:12px;line-height:1.5;color:#b9bdc8}.notice{font-size:13px;color:#d6cda3;min-height:19px;margin:6px 0 10px}.notice.success{color:var(--teal)}.notice.error{color:#ffc6bc}input[type=text],input[type=number],select,textarea{width:100%;background:#0a1121;border:1px solid #717185;border-radius:6px;color:#f4e8d0;padding:12px 13px;outline:0}input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}textarea{resize:vertical;line-height:1.5}label{display:block;font-size:13px;font-weight:700;margin:16px 0 7px}button:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+/* welcome */.welcome-content{z-index:2;width:min(720px,100%);text-align:center;padding:35px 0}.welcome-content h1{font:700 clamp(43px,9vw,102px)/1.04 Cinzel,Georgia,serif;letter-spacing:.055em;text-shadow:0 4px 30px #000; margin:6px 0}.welcome-content h1 span{color:var(--gold)}.welcome-sigil{font-size:38px;color:var(--gold);filter:drop-shadow(0 0 13px #f3c77a);margin-top:10px}.welcome-story{max-width:620px;margin:26px auto 24px;text-align:left}.parchment{background:linear-gradient(145deg,rgba(30,39,56,.92),rgba(21,27,39,.95));border:1px solid #8d7550;border-radius:10px;padding:22px 27px;color:#e8e2d6;line-height:1.7}.parchment p:last-child{margin:0}.welcome-footnote{font-size:11px;color:#b1acb9;margin-top:24px;letter-spacing:.09em}.stars{position:absolute;inset:0;opacity:.9;background-image:radial-gradient(1.5px 1.5px at 15% 22%,#eae4cc 45%,transparent),radial-gradient(1px 1px at 62% 7%,#fff 45%,transparent),radial-gradient(1.5px 1.5px at 85% 32%,#e1d5b0 45%,transparent),radial-gradient(2px 2px at 32% 67%,#8ad6ce 45%,transparent),radial-gradient(1px 1px at 77% 79%,#fff 45%,transparent);pointer-events:none}
+/* character roll */.roll-panel{margin:30px auto 0;padding:30px;max-width:590px}.roll-panel label:first-of-type{margin-top:0}.roll-panel select{font-size:17px}.dice-emblem{text-align:center;font-size:62px;color:var(--gold);line-height:1;margin-bottom:18px}.roll-panel button{margin-top:12px}.reveal-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}.reveal-profile{padding:25px;margin:20px 0}.reveal-profile h3{font-size:26px;color:var(--gold);margin-bottom:5px}.reveal-profile .major{color:var(--teal);font-weight:700}.reveal-profile p{line-height:1.6}.reveal-profile dl{display:grid;grid-template-columns:140px 1fr;gap:10px;font-size:13px}.reveal-profile dt{color:var(--gold);font-weight:800}.reveal-profile dd{margin:0}.portrait-scene{height:480px;border-radius:250px 250px 25px 25px;border:2px solid #b59d6a;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle at 50% 45%,#766b83aa,#24253b 47%,#10192a 70%);box-shadow:inset 0 0 45px #e7bf7b27,0 0 40px #0009}.portrait-rune{font-size:130px;filter:drop-shadow(0 5px 15px #0009)}.portrait-caption{font:800 23px Cinzel,serif;color:#f5dbab;text-align:center;padding:0 16px}
+/* map */#campusScreen{padding-top:25px}.campus-header{text-align:center;margin:0 auto 25px}.campus-header .display-title{font-size:clamp(28px,3.5vw,47px);margin:6px 0}.campus-header p{color:#bbb8c2;margin:0}.campus-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,310px);gap:18px;max-width:1450px;margin:0 auto;align-items:stretch}.campus-scene{min-height:590px;position:relative;aspect-ratio:1200/690;overflow:hidden;border:2px solid #7c6850;border-radius:14px;box-shadow:var(--shadow);background:#131a27}.campus-painting{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.campus-sign{position:absolute;bottom:2%;left:50%;transform:translateX(-50%);background:#181c29e9;border:1px solid #ad8967;border-radius:6px;color:#f3d29a;padding:8px 15px;white-space:nowrap;text-align:center;font:700 clamp(11px,1.1vw,16px) Cinzel,serif;box-shadow:0 0 20px #000b}.campus-sign span{display:block;font:600 9px 'DM Sans',sans-serif;letter-spacing:.17em;color:#d4c5a5;margin-top:3px}.building-buttons{position:absolute;inset:0}.building-btn{position:absolute;top:26%;width:19%;height:46%;padding:0;border:none;background:none;color:var(--cream);outline-offset:6px;transition:transform .18s,filter .18s;z-index:3}.building-btn:nth-child(1){left:3.8%;top:30%}.building-btn:nth-child(2){left:28.5%;top:20%}.building-btn:nth-child(3){left:54%;top:27%}.building-btn:nth-child(4){left:78%;top:17%}.building-btn:hover:not(:disabled){transform:translateY(-8px);filter:brightness(1.35)}.building-btn.locked{filter:grayscale(.65) brightness(.54)}.building-btn.locked:hover{transform:none;filter:grayscale(.45) brightness(.68)}.building-structure{display:block;position:absolute;bottom:15%;left:5%;width:90%;height:75%;background:linear-gradient(95deg,#292b36,#65616a 44%,#2c3440 95%);clip-path:polygon(0 19%,14% 19%,14% 8%,30% 8%,50% 0,70% 8%,86% 8%,86% 19%,100% 19%,100% 100%,0 100%);border-bottom:4px solid #12141b;box-shadow:0 0 30px #000}.building-structure:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 20px,#16182254 21px 22px),repeating-linear-gradient(90deg,transparent 0 24px,#1e1b2744 25px 26px)}.building-roof{position:absolute;top:7%;left:5%;width:90%;height:20%;background:#181d2b;clip-path:polygon(0 95%,50% 0,100% 95%)}.building-windows{position:absolute;inset:27% 13% 30%;display:grid;grid-template-columns:repeat(4,1fr);gap:13%;align-items:center}.building-windows span{display:block;height:38%;background:#f8d17e;box-shadow:0 0 17px #efb45e8c;border-radius:8px 8px 2px 2px;border:2px solid #15171c}.building-btn.locked .building-windows span{background:#555263;box-shadow:none}.building-door{position:absolute;bottom:15%;left:39%;width:22%;height:28%;background:linear-gradient(90deg,#0e0c13 45%,#805c32 46%,#0e0c13 52%);border:5px solid #a79a81;border-bottom:0;border-radius:40% 40% 0 0}.building-label{display:block;position:absolute;bottom:0;left:0;width:100%;min-height:43px;padding:6px 4px;border-radius:6px;background:#080f1fe9;border:1px solid #b79c71;color:#fce6ae;font:700 clamp(10px,1vw,13px) Cinzel,serif;text-shadow:0 2px 5px #000}.building-btn.locked .building-label{color:#aaa}.building-label small{display:block;color:#bac4bc;font:600 10px 'DM Sans',sans-serif;letter-spacing:.02em}.map-side{padding-bottom:16px}.char-mini{display:flex;gap:12px;align-items:center;padding:15px 17px;border-bottom:1px solid #383e4c}.char-mini-icon{min-width:47px;width:47px;height:47px;border-radius:13px;border:1px solid #918266;background:#253047;display:grid;place-items:center;font-size:25px}.char-mini h3{font-size:14px;margin:0 0 4px}.char-mini p{font-size:11px;margin:0;color:#bac0c7}.year-list{padding:10px 13px}.year-entry{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:10px 8px;border-bottom:1px solid #343c4d;font-size:12px}.year-entry strong{font-family:Cinzel,serif}.year-entry span{color:#bcb7b5}.year-entry.done span{color:var(--teal)}.mini-dome{padding:15px;display:flex;flex-direction:column;align-items:center;gap:6px}.mini-progress{width:100%;height:9px;border-radius:99px;background:#0a101c;border:1px solid #81745c;overflow:hidden}.mini-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#7198af,#8df0c1,#ffdc81);transition:width .6s}.map-side>button{max-width:calc(100% - 24px);margin:7px 12px}
+/* glass dome SVG generated by JS */.brain-home{height:150px;width:170px;margin:auto;display:flex;align-items:center;justify-content:center}.brain-home svg{height:100%;max-width:100%;overflow:visible}.brain-pulse{animation:softGlow 3.5s ease-in-out infinite;transform-origin:center;transform-box:fill-box}.brain-home.complete .brain-pulse{animation:softGlow .75s ease-in-out infinite}
+/* doors */#doorScreen{background:radial-gradient(circle,#504735,#08090e 72%);padding:0}#doorScreen.active{display:flex;align-items:center;justify-content:center}.door-backdrop{position:relative;width:min(76vw,640px);height:min(83vh,710px);display:flex;align-items:center;justify-content:center}.door-arch{width:82%;height:86%;position:relative;perspective:1000px;background:radial-gradient(circle,#e0c68f,#815e3d 35%,#120f15 75%);border:22px ridge #81725b;border-radius:49% 49% 8px 8px;overflow:hidden;box-shadow:0 0 70px #f6de9255}.door-panel{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,#2a1b1b,#6d4230 50%,#251821);border:5px ridge #bea374;transition:transform 1.4s cubic-bezier(.6,.02,.12,1)}.door-panel:after{content:'✦';position:absolute;top:45%;font-size:22px;color:#ffe59d}.door-panel.left{left:0;transform-origin:left center}.door-panel.right{right:0;transform-origin:right center}.door-panel.left:after{right:12px}.door-panel.right:after{left:12px}.door-backdrop.open .door-panel.left{transform:rotateY(-115deg)}.door-backdrop.open .door-panel.right{transform:rotateY(115deg)}.door-glow{position:absolute;inset:0;background:radial-gradient(ellipse,#fff0b9,#cd9963 55%,#171119);filter:blur(12px)}.door-title{position:absolute;bottom:0;text-align:center;font:700 18px Cinzel,serif;letter-spacing:.08em;text-shadow:0 0 8px #000}
+/* room */#yearScreen{padding:15px 28px 32px}.room-bar{max-width:1450px;margin:0 auto 12px;display:flex;align-items:center;justify-content:space-between;gap:15px}.room-bar>div:nth-child(2){text-align:center}.room-title{font-size:clamp(23px,3vw,35px);margin:5px 0}.room-progress{font-family:Cinzel,serif;font-size:12px;color:var(--teal)}.room-grid{max-width:1450px;margin:auto;display:grid;grid-template-columns:minmax(310px,.9fr) minmax(0,1.15fr);gap:16px;align-items:stretch}.narrative-column{display:flex;flex-direction:column;min-height:750px}.scenario-tabs{padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.scenario-tab{padding:8px 3px;border:1px solid #62667d;background:#222b3d;color:#d1c4b3;font-size:11px;font-weight:700;border-radius:5px}.scenario-tab.active{background:#dec18a;color:#23190e;border-color:#f7dfad}.scenario-tab.done:not(.active){color:#a9e6c2;border-color:#47785e}.scenario-tab:disabled{opacity:.4}.scenario-scroll{padding:18px 20px;overflow-y:auto;max-height:750px}.scenario-scroll h3{font-size:22px;color:#fae1a8;margin:5px 0 16px}.scenario-scroll .course-title{font:700 12px 'DM Sans',sans-serif;letter-spacing:.1em;color:var(--teal)}.story-card{padding:14px 15px;margin:13px 0;background:#0b1423;border:1px solid #44495c;border-radius:8px;font-size:13px;line-height:1.56}.story-card strong{display:block;font:800 11px 'DM Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}.story-card p:last-child{margin:0}.speech{font-style:italic;color:#f0dfbd;border-left:3px solid #b8a17e;padding-left:12px;font-size:16px;line-height:1.55}.work-column{overflow:hidden}.win-titlebar{background:#1e2743;display:flex;justify-content:space-between;align-items:center;font:700 13px Cinzel,serif;color:#f0dbaa;padding:11px 17px;border-bottom:1px solid #776852}.fake-controls{color:#bcb5af}.work-content{padding:20px 25px}.work-intro h3{font-size:25px;margin:8px 0}.work-intro p{color:#c1c2c8;line-height:1.5;font-size:13px}#scenarioForm label,.boss-panel label,.grad-answer label{margin:16px 0 8px}.framework-field{border:1px solid #5e6175;padding:13px 15px;border-radius:7px;margin:17px 0}.framework-field legend{font-size:12px;color:#eccb90;font-weight:700;padding:0 7px}.framework-field label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;margin:8px 0}input[type=checkbox]{accent-color:#d9bc7c;width:17px;height:17px;flex-shrink:0}.boss-panel{display:flex;flex-direction:column;gap:0}.boss-name{color:#d6b2ff;font:700 16px Cinzel,serif;letter-spacing:.05em}.boss-dialogue{background:#222038;border-left:4px solid #ab94d9;padding:16px 19px;color:#f0e1fb;font:italic 16px/1.6 Georgia,serif;margin:12px 0}.encounter-roll{display:flex;align-items:center;gap:22px;background:#0f1724;padding:15px;border-radius:8px}.die-shape{width:80px;height:84px;flex-shrink:0;display:grid;place-items:center;color:#251b17;font:700 26px Cinzel,serif;background:linear-gradient(145deg,#f1dca3,#b99861);clip-path:polygon(50% 0,92% 22%,100% 72%,50% 100%,0 72%,8% 22%);filter:drop-shadow(0 2px 4px #fff)}.die-manual{display:flex;align-items:center;gap:6px;margin-top:9px}.die-manual label{display:inline;margin:0;font-size:11px;white-space:nowrap}.die-manual input{width:65px;padding:7px}.die-manual button{padding:7px 9px}.boss-challenge{background:#231d2b;border:1px solid #6b5588;border-radius:7px;padding:14px;margin:16px 0;font-size:14px;line-height:1.6}.facilitator-panel{border:1px solid #7c694b;background:#231f22;padding:13px 15px;border-radius:7px;margin:19px 0 12px}.facilitator-panel h4{margin:0;color:#f5dba3;font:700 16px Cinzel,serif}.facilitator-panel p{font-size:12px;color:#c8c0b3;line-height:1.5;margin:8px 0}.facilitator-panel .check-award{display:flex;gap:7px;align-items:center;margin:13px 0;font-weight:600;font-size:13px}.score-preview{color:var(--teal);font-size:14px;padding-top:10px;border-top:1px solid #695e50}.room-footer{display:grid;grid-template-columns:175px 1fr;gap:20px;align-items:center;margin-top:25px;background:#090e1b;border-radius:8px;padding:14px 18px;border:1px solid #585263}.generator-display{text-align:center}.generator-display .brain-home{height:142px}.generator-display .eyebrow{font-size:10px}.generator-display #brainStageName{font-size:11px;color:#cbd4ce}.room-controls p{color:#d8d6d3;font-size:14px;line-height:1.55}
+/* graduation */#graduationScreen{padding:30px 25px}.grad-heading{text-align:center}.grad-heading>p{color:#cdc9d0}.grad-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.grad-story,.grad-answer{padding-bottom:20px}.grad-story>p{padding:0 24px;line-height:1.6;font-size:14px}.grad-story>.boss-dialogue{margin:18px 22px}.grad-answer{padding:0 22px 22px}.grad-answer .panel-heading{margin:0 -22px 20px}.grad-brain{height:210px!important}.grad-answer>button{margin-top:8px}
+/* victory */#victoryScreen{background:radial-gradient(circle at center,#253830 2%,#15231e 40%,#0a0e17 90%)}.victory-wrap{text-align:center}.victory-shine{font-size:78px;color:#f3d78b;filter:drop-shadow(0 0 20px #f1e5bd);animation:softGlow 2s infinite}.diploma{padding:15px;background:#b99e6b;border:8px double #eed8a3;box-shadow:var(--shadow);color:#34251c;margin:25px 0}.diploma-inner{padding:25px;background:#f3e4ba;border:1px solid #775b33}.diploma-inner>div:first-child{font:700 14px Cinzel,serif;letter-spacing:.13em}.diploma-star{font-size:42px;color:#6c5933}.diploma h3{font-size:27px}.diploma p{font:16px/1.6 Georgia,serif}.diploma strong{font-family:Cinzel,serif}.button-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+/* modals */.info-dialog{background:#162033;border:1px solid #ac9161;color:var(--cream);width:min(620px,calc(100% - 32px));max-height:85vh;padding:0;border-radius:11px;box-shadow:0 30px 90px #000}.info-dialog::backdrop{background:#050710bb}.modal-top{display:flex;align-items:center;justify-content:space-between;background:#272c42;padding:13px 18px;border-bottom:1px solid #766852}.modal-top h3{margin:0;color:var(--gold)}#modalBody{padding:22px;line-height:1.6}#modalBody dt{font-weight:800;color:var(--gold);margin-top:12px}#modalBody dd{margin:4px 0 10px}
+@keyframes drift{from{transform:translateX(-4%)}to{transform:translateX(32%)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes softGlow{50%{filter:drop-shadow(0 0 18px #a5ead7);transform:scale(1.035)}}
+@media(max-width:1100px){.campus-layout{grid-template-columns:1fr}.campus-scene{min-height:450px}.map-side{display:grid;grid-template-columns:1fr 1fr;align-items:center}.map-side .panel-heading{grid-column:1/-1}.map-side .char-mini{border-right:1px solid #383e4c}.map-side .year-list{grid-row:2/4;grid-column:2}.map-side .mini-dome{grid-row:3;grid-column:1}.map-side>button{margin:12px}.room-grid{grid-template-columns:.9fr 1fr}.scenario-scroll{max-height:none}}
+@media(max-width:780px){.screen{padding:27px 15px}.global-bar{padding:10px;flex-wrap:wrap;gap:7px}.brand-button{font-size:12px}.global-middle{order:3;width:100%;justify-content:center}.global-right{gap:7px}.global-right strong{font-size:11px}.global-right .minor-btn{padding:7px}.reveal-layout,.room-grid,.grad-grid{grid-template-columns:1fr}.portrait-scene{height:220px;border-radius:120px 120px 20px 20px}.portrait-rune{font-size:80px}.room-bar{flex-wrap:wrap;justify-content:center}.room-bar .room-progress{width:100%;text-align:center}.narrative-column{min-height:0}.scenario-scroll{max-height:480px}.campus-scene{min-height:350px}.building-btn{top:29%;width:22%;height:43%}.building-btn:nth-child(1){left:1%}.building-btn:nth-child(2){left:26%}.building-btn:nth-child(3){left:51%}.building-btn:nth-child(4){left:75%}.building-label{font-size:9px;bottom:-6%;min-height:36px}.building-label small{font-size:8px}.map-side{display:block}.map-side .char-mini{border-right:0}.map-side .mini-dome{padding:7px}.die-manual{flex-wrap:wrap}.reveal-profile dl{grid-template-columns:1fr}.reveal-profile dt{margin-top:5px}.reveal-profile dd{margin-bottom:5px}}
+@media(max-width:480px){.campus-scene{min-height:285px}.campus-sign{display:none}.building-label{font-size:8px}.building-roof{top:9%}.room-footer{grid-template-columns:1fr;text-align:center}.room-controls{text-align:center}.work-content{padding:14px}.scenario-tabs{grid-template-columns:repeat(4,1fr)}.encounter-roll{flex-direction:column}.welcome-content h1{font-size:40px}.parchment{padding:16px}.screen-intro{font-size:15px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.global-bar,.weather-layer,#appMain>.screen:not(#victoryScreen),.button-row{display:none!important}#victoryScreen{display:block!important;background:white!important;color:black!important;min-height:auto}#victoryScreen .display-title,#victoryScreen .eyebrow{color:black!important}.diploma{box-shadow:none;margin:0}}
+
+/* Scenario submission clarity and actionable feedback */
+.submission-guide{border:1px solid #7d704e;background:#161e2c;border-radius:9px;padding:13px 15px;margin:15px 0 16px;font:13px/1.6 'DM Sans',system-ui,sans-serif}
+.submission-guide-title{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:8px;margin-bottom:7px;border-bottom:1px solid #464b54;color:#ffe1a7}
+.submission-guide-title span{white-space:nowrap;color:#decdaa;font-size:12px}
+.requirement{color:#d7cbba;padding:3px 0}
+.requirement.met{color:#98e8c6}
+.submission-guide.attention{border-color:#ffb8a4;box-shadow:0 0 0 2px #ff93881c}
+.field-count{margin:4px 0 9px;text-align:right;color:#a9afbc;font:11px 'DM Sans',system-ui,sans-serif}
+.field-count.complete{color:#98e8c6}
+#scenarioForm textarea[aria-invalid="true"],#frameworkField.field-error{border-color:#fa9888;box-shadow:0 0 0 2px #fa988822}
+.save-toast{position:fixed;z-index:500;top:76px;left:50%;transform:translateX(-50%);width:min(640px,calc(100% - 28px));padding:14px 18px;border:2px solid #ebb77e;border-radius:9px;background:#182536;color:#ffefcb;font:700 14px/1.55 'DM Sans',system-ui,sans-serif;box-shadow:0 15px 45px #000b;pointer-events:none;text-align:center}
+.save-toast.error{border-color:#ffb4a3;background:#4b252c;color:#fff4ec}
+.save-toast.success{border-color:#a5eccb;background:#17392e;color:#e7fff3}
+@media(max-width:780px){.save-toast{top:14px}.submission-guide-title{align-items:flex-start;flex-direction:column;gap:2px}}
+
+/* v1.2: prominent save-result display, cache-identification and feedback */
+.save-feedback{margin-top:11px;padding:10px 13px;border-radius:7px;background:#0b1525;border:1px solid #59647a;color:#d5dbe9;font:600 12px/1.5 'DM Sans',system-ui,sans-serif}
+.save-feedback.success{border-color:#83d4a7;background:#133224;color:#cdf7d9}
+.save-feedback.error{border-color:#efa89d;background:#3e212a;color:#ffe5df}
+#saveScenarioBtn{min-height:54px;touch-action:manipulation}
+.version-mark{position:fixed;right:10px;bottom:8px;z-index:200;color:#ccbc8e;background:#07101bd9;padding:4px 9px;border:1px solid #736248;border-radius:4px;pointer-events:none;font:10px 'DM Sans',system-ui,sans-serif;letter-spacing:.06em}
+@media print{.version-mark{display:none}}
+</style></head>
+<body>
+  <div id="screen-reader-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="saveToast" class="save-toast hidden" role="status" aria-live="polite"></div>
+  <div class="weather-layer" aria-hidden="true"><span class="mist mist-a"></span><span class="mist mist-b"></span></div>
+  <header id="globalBar" class="global-bar hidden">
+    <button class="brand-button" id="homeBtn" type="button">✦ CURSED UNIVERSITY</button>
+    <div class="global-middle"><span id="partyStatus">Party not assigned</span><span id="yearStatus">Year 1 / 4</span></div>
+    <div class="global-right"><strong id="globalPoints">0 / 100 KP</strong><button type="button" id="resetBtn" class="minor-btn">↺ Reset</button></div>
+  </header>
+
+  <main id="appMain">
+    <!-- WELCOME -->
+    <section id="welcomeScreen" class="screen active" aria-labelledby="welcomeTitle">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="welcome-content">
+        <div class="eyebrow">A four-year tabletop adventure</div>
+        <div class="welcome-sigil" aria-hidden="true">✦</div>
+        <h1 id="welcomeTitle">CURSED<br><span>UNIVERSITY</span></h1>
+        <p class="lead">The Degree of Understanding</p>
+        <div class="welcome-story parchment">
+          <p>At the university where every answer comes easily, something terrible has happened: <strong>the work gets submitted, but the learning has vanished.</strong></p>
+          <p>The Chancellor of Shortcuts has sealed the <strong>Brain of Understanding</strong> beneath glass. Your party must guide one student through four academic years, redesign the assessments they encounter, and restore the power of learning before commencement.</p>
+        </div>
+        <button class="cta" id="welcomeStart" type="button">ENTER THE ADVENTURE <span aria-hidden="true">➜</span></button>
+        <div class="welcome-footnote">6 characters · 4 years · 12 scenarios per character · 5 scored encounters</div>
+      </div>
+    </section>
+
+    <!-- ROLL -->
+    <section id="rollScreen" class="screen" aria-labelledby="rollTitle">
+      <div class="center-wrap narrow">
+        <div class="eyebrow">Chapter 00 · The Choosing</div>
+        <h2 id="rollTitle" class="display-title">THE ROLL OF DESTINY</h2>
+        <p class="screen-intro">Each table is a party of designers. Roll a physical six-sided die at your table. The number determines whose college journey your party will protect.</p>
+        <div class="panel roll-panel">
+          <div class="dice-emblem" aria-hidden="true">⚄</div>
+          <label for="tableName">Your party / table name</label>
+          <input id="tableName" type="text" maxlength="45" placeholder="e.g., The Night Scholars" autocomplete="off">
+          <label for="diceSelect">What number did your table roll?</label>
+          <select id="diceSelect"><option value="">Choose your roll...</option><option value="1">⚀ — 1</option><option value="2">⚁ — 2</option><option value="3">⚂ — 3</option><option value="4">⚃ — 4</option><option value="5">⚄ — 5</option><option value="6">⚅ — 6</option></select>
+          <p class="quiet">The roll chooses your character; it does not affect your educational score.</p>
+          <button class="cta fill" id="revealBtn" type="button" disabled>REVEAL YOUR CHARACTER</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVEAL -->
+    <section id="revealScreen" class="screen" aria-labelledby="revealTitle">
+      <div class="center-wrap reveal-layout">
+        <div>
+          <div class="eyebrow">The path has chosen you</div>
+          <h2 id="revealTitle" class="display-title">YOUR STUDENT</h2>
+          <p class="screen-intro">Your party will encounter this student's strengths, interests, obligations, and temptations across four years.</p>
+          <div class="panel reveal-profile" id="revealProfile"></div>
+          <button class="cta" id="enterCampusBtn" type="button">BEGIN YEAR ONE ➜</button>
+        </div>
+        <div class="portrait-scene"><div class="portrait-rune" id="revealIcon">✦</div><div id="revealNameArt" class="portrait-caption"></div></div>
+      </div>
+    </section>
+
+    <!-- CAMPUS -->
+    <section id="campusScreen" class="screen" aria-labelledby="campusTitle">
+      <div class="campus-header"><div class="eyebrow">The adventure map</div><h2 id="campusTitle" class="display-title">THE CURSED CAMPUS</h2><p id="campusMessage">Select the illuminated building to begin.</p></div>
+      <div class="campus-layout">
+        <div class="campus-scene" id="campusStage">
+          <svg class="campus-painting" viewBox="0 0 1200 690" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Spooky university campus at night with four old Gothic college buildings, fog, dark evergreens, cobblestone paths, and moonlight">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#060a1c"/><stop offset=".59" stop-color="#253047"/><stop offset="1" stop-color="#4e473e"/></linearGradient>
+              <linearGradient id="stone" x1="0" x2=".9" y1="0" y2="1"><stop stop-color="#414350"/><stop offset=".6" stop-color="#292d3c"/><stop offset="1" stop-color="#171c2b"/></linearGradient>
+              <radialGradient id="moonGlow"><stop stop-color="#f1e9b6" stop-opacity=".7"/><stop offset=".25" stop-color="#dbd8af" stop-opacity=".2"/><stop offset="1" stop-color="#a9a4b3" stop-opacity="0"/></radialGradient>
+              <filter id="blurFog"><feGaussianBlur stdDeviation="16"/></filter>
+              <pattern id="brick" width="36" height="18" patternUnits="userSpaceOnUse"><path d="M0 0H36M0 18H36M18 0V9M0 9H36M0 9V18M36 9V18" stroke="#777484" stroke-opacity=".13" fill="none"/></pattern>
+            </defs>
+            <rect width="1200" height="690" fill="url(#sky)"/>
+            <circle cx="920" cy="124" r="220" fill="url(#moonGlow)"/><circle cx="920" cy="124" r="39" fill="#e7e1c2" opacity=".82"/>
+            <g fill="#e8daa6" opacity=".72"><circle cx="90" cy="75" r="1.6"/><circle cx="212" cy="120" r="1"/><circle cx="380" cy="48" r="1.8"/><circle cx="730" cy="69" r="1.7"/><circle cx="1105" cy="90" r="1"/><circle cx="1030" cy="240" r="1.5"/></g>
+            <path d="M0 346L150 270 280 333 408 240 520 304 670 234 790 297 920 245 1100 300 1200 230V500H0Z" fill="#151d2a"/>
+            <path d="M0 430L90 320 178 443 245 338 330 460 403 352 501 440 640 318 788 442 930 305 1030 431 1155 321 1200 389V570H0Z" fill="#101b22"/>
+            <g fill="#091419" opacity=".95"><path d="M0 475l31-93 32 93zM48 489l36-118 39 118zM150 485l27-90 30 90zM320 476l29-104 34 104zM531 479l32-115 39 115zM850 484l37-123 40 123zM1070 481l43-126 48 126z"/></g>
+            <path d="M0 490Q300 465 580 495T1200 473V690H0Z" fill="#1c2929"/>
+            <path d="M450 690Q510 546 585 494L610 494Q672 570 738 690Z" fill="#6a6763"/>
+            <path d="M490 690L590 495 618 495 690 690Z" fill="#76736d" opacity=".7"/>
+            <g stroke="#31383b" stroke-width="3" opacity=".55"><path d="M0 606Q600 567 1200 606M0 652Q600 615 1200 649" fill="none"/><path d="M570 500L524 689M600 501L594 690M630 506L674 690"/></g>
+            <g fill="#d4d4b9" opacity=".22" filter="url(#blurFog)"><ellipse cx="180" cy="524" rx="240" ry="22"/><ellipse cx="940" cy="508" rx="260" ry="27"/><ellipse cx="620" cy="610" rx="410" ry="29"/></g>
+            <g opacity=".65" fill="#f8d998"><circle cx="86" cy="524" r="8"/><circle cx="1102" cy="528" r="8"/></g>
+            <g stroke="#161d21" stroke-width="8"><path d="M86 518v86M1102 522v87"/></g>
+          </svg>
+          <div id="buildingButtons" class="building-buttons"></div>
+          <div class="campus-sign">✦ CURSED UNIVERSITY ✦ <span>EST. IN ANOTHER AGE</span></div>
+        </div>
+        <aside class="map-side panel">
+          <div class="panel-heading">YOUR CHRONICLE</div>
+          <div class="char-mini" id="mapCharacter"></div>
+          <div id="yearList" class="year-list"></div>
+          <div class="mini-dome"><div class="eyebrow">The Brain of Understanding</div><div id="mapBrain" class="brain-home"></div><div class="mini-progress"><div id="mapFill" class="mini-progress-fill"></div></div><div id="mapKPLabel" class="quiet">0 / 100 KP</div></div>
+          <button id="graduationBtn" class="cta fill hidden" type="button">FACE GRADUATION ➜</button>
+          <button id="reviewWorkBtn" class="minor-btn fill" type="button">Review saved designs</button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- DOOR TRANSITION -->
+    <section id="doorScreen" class="screen" aria-label="Entering academic building">
+      <div class="door-backdrop"><div class="door-arch"><div class="door-glow"></div><div class="door-panel left"></div><div class="door-panel right"></div></div><div class="door-title" id="doorTitle">THE DOORS ARE OPENING...</div></div>
+    </section>
+
+    <!-- ROOM SCENARIOS -->
+    <section id="yearScreen" class="screen" aria-labelledby="roomTitle">
+      <div class="room-bar"><button class="minor-btn" id="returnCampusBtn" type="button">← Campus</button><div><div class="eyebrow" id="roomYear">Year One</div><h2 id="roomTitle" class="room-title">The Hall of Beginnings</h2></div><div id="roomProgress" class="room-progress">Scenario 1 of 3</div></div>
+      <div class="room-grid">
+        <aside class="panel narrative-column">
+          <div class="panel-heading">THE STUDENT'S JOURNEY</div>
+          <div class="char-mini" id="roomCharacter"></div>
+          <div class="scenario-tabs" id="scenarioTabs"></div>
+          <div class="scenario-scroll" id="scenarioDetails"></div>
+        </aside>
+        <div class="panel work-column">
+          <div class="win-titlebar"><span>COURSE-RECOVERY TERMINAL</span><span class="fake-controls" aria-hidden="true">▁ □ ×</span></div>
+          <div class="work-content">
+            <div class="work-intro"><span class="eyebrow">YOUR TABLE'S REDESIGN</span><h3>Outthink the shortcut</h3><p>Collaborate before typing. You must address <strong>AI friction</strong> and <strong>at least one</strong> redesign element.</p></div>
+            <form id="scenarioForm" novalidate>
+              <div id="submissionGuide" class="submission-guide" aria-label="Requirements to continue">
+                <div class="submission-guide-title"><strong>Before you can continue</strong><span id="completionCount">0 of 3 ready</span></div>
+                <div id="checkFriction" class="requirement">○ AI friction response (15+ characters)</div>
+                <div id="checkRedesign" class="requirement">○ Assessment redesign response (15+ characters)</div>
+                <div id="checkFramework" class="requirement">○ Choose at least one redesign element</div>
+              </div>
+              <label for="frictionText">1 · What purposeful AI friction would you introduce?</label>
+              <textarea id="frictionText" rows="4" maxlength="3500" aria-describedby="frictionCount" placeholder="What thinking could AI bypass? How will the revised assignment make that thinking visible without adding arbitrary barriers?"></textarea>
+              <div id="frictionCount" class="field-count">0 / 15 minimum characters</div>
+              <label for="redesignText">2 · How would you redesign this assessment?</label>
+              <textarea id="redesignText" rows="4" maxlength="3500" aria-describedby="redesignCount" placeholder="Describe the assessment changes and why they support student learning and/or a reason to engage."></textarea>
+              <div id="redesignCount" class="field-count">0 / 15 minimum characters</div>
+              <fieldset class="framework-field" id="frameworkField"><legend>Which elements does your redesign address? (choose at least one)</legend><label><input type="checkbox" name="framework" value="practice"> Meaningful practice</label><label><input type="checkbox" name="framework" value="engage"> A reason to engage</label><label><input type="checkbox" name="framework" value="reasonable"> Reasonable conditions and friction</label></fieldset>
+              <div id="scenarioNotice" class="notice" role="status" aria-live="polite"></div>
+              <button class="cta fill" id="saveScenarioBtn" type="button">SAVE DESIGN & CONTINUE ➜</button>
+              <div id="saveFeedback" class="save-feedback" role="status" aria-live="polite">Complete the checklist above, then press Save Design &amp; Continue.</div>
+            </form>
+            <div class="boss-panel hidden" id="bossPanel">
+              <div class="boss-name">THE CHANCELLOR OF SHORTCUTS</div>
+              <p class="boss-dialogue" id="bossDialogue"></p>
+              <div class="encounter-roll"><div class="die-shape" id="dieValue">d20</div><div><button type="button" class="cta" id="rollBossBtn">ROLL THE d20</button><div class="die-manual"><label for="manualDie">or enter a physical roll:</label> <input id="manualDie" type="number" min="1" max="20" placeholder="1–20"><button type="button" id="useManualDie" class="minor-btn">Use</button></div></div></div>
+              <div id="bossChallenge" class="boss-challenge">Roll the die to reveal the Chancellor's attack.</div>
+              <label for="bossResponse">Defend your assessment redesign against the attack</label>
+              <textarea id="bossResponse" rows="5" maxlength="4000" placeholder="Explain how your proposed design protects student thinking, encourages engagement, and maintains reasonable demands."></textarea>
+              <div class="facilitator-panel"><h4>Facilitator judgment</h4><p>One person at the table facilitates scoring. The game does <strong>not</strong> evaluate written responses automatically.</p><label class="check-award"><input id="frictionAward" type="checkbox"> +10 KP — purposeful AI friction is defensible</label><label class="check-award"><input id="frameworkAward" type="checkbox"> +10 KP — at least one framework element is defensible</label><div id="scorePreview" class="score-preview">Proposed score: <strong>0 / 20 KP</strong></div></div>
+              <div id="bossNotice" class="notice" aria-live="polite"></div>
+              <button class="cta fill" type="button" id="submitBossBtn">CONFIRM JUDGMENT & COMPLETE YEAR</button>
+              <p id="bossRetryHelp" class="quiet"></p>
+            </div>
+            <div id="roomFooter" class="room-footer"><div class="generator-display"><div class="eyebrow">Brain Growth Chamber</div><div id="roomBrain" class="brain-home"></div><div id="brainStageName">Stage I · First Spark</div></div><div class="room-controls"><p id="roomFooterMessage">Complete three scenarios to face the Chancellor.</p><button type="button" class="minor-btn" id="quickReviewBtn">? Framework refresher</button></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRADUATION -->
+    <section id="graduationScreen" class="screen" aria-labelledby="gradTitle">
+      <div class="grad-layout center-wrap">
+        <div class="grad-heading"><div class="eyebrow">Year Four Complete · Final Encounter</div><h2 id="gradTitle" class="display-title">THE COMMENCEMENT TRIAL</h2><p>The Chancellor stands before the sealed gates. A polished transcript alone cannot open them.</p></div>
+        <div class="grad-grid">
+          <div class="panel grad-story"><div class="panel-heading">THE LAST QUESTION</div><div id="gradCharacter" class="char-mini"></div><p class="boss-dialogue">“Four years of submissions. Four years of shortcuts. How can anyone know your student has actually learned?”</p><p><strong>Your table must defend one final assessment decision.</strong> Draw upon the student's journey. Explain the learning you preserved, what purposeful AI friction made it visible, why the demands are reasonable or worthwhile, and one vulnerability that remains.</p><div id="gradBrain" class="brain-home grad-brain"></div></div>
+          <div class="panel grad-answer"><div class="panel-heading">FINAL DEGREE DEFENSE</div><label for="gradResponse">What would graduation-ready assessment look like for this student?</label><textarea id="gradResponse" rows="7" maxlength="5000" placeholder="Defend a concrete assessment decision, the intended learning, purposeful AI friction, at least one redesign element, and an honest limitation."></textarea><div class="facilitator-panel"><h4>Final facilitator judgment</h4><label class="check-award"><input id="gradFriction" type="checkbox"> +10 KP — purposeful AI friction</label><label class="check-award"><input id="gradFramework" type="checkbox"> +10 KP — at least one redesign element</label><div id="gradScorePreview" class="score-preview">Proposed score: <strong>0 / 20 KP</strong></div></div><div id="gradNotice" class="notice" aria-live="polite"></div><button id="submitGradBtn" class="cta fill" type="button">DELIVER FINAL JUDGMENT</button><button id="gradCampusBtn" class="minor-btn fill" type="button">← Campus / Revise Earlier Defenses</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VICTORY -->
+    <section id="victoryScreen" class="screen" aria-labelledby="victoryTitle">
+      <div class="center-wrap narrow victory-wrap"><div class="victory-shine" aria-hidden="true">✦</div><div class="eyebrow">Commencement Unlocked</div><h2 class="display-title" id="victoryTitle">THE DEGREE IS EARNED</h2><div class="diploma"><div class="diploma-inner"><div>CURSED UNIVERSITY</div><div class="diploma-star">✷</div><h3>Certificate of Understanding</h3><p id="diplomaName"></p><p>Through purposeful assessment design, defensible reasoning, and the courage to question shortcuts, this party has awakened the Brain of Understanding.</p><strong>100 / 100 KNOWLEDGE POINTS</strong></div></div><div class="button-row"><button class="cta" id="victoryCampusBtn" type="button">VIEW COMPLETED CAMPUS</button><button class="minor-btn" id="printDiplomaBtn" type="button">PRINT CERTIFICATE</button></div></div>
+    </section>
+  </main>
+
+  <dialog id="infoModal" class="info-dialog"><div class="modal-top"><h3 id="modalTitle">Framework refresher</h3><button id="closeInfoModal" class="minor-btn" type="button">✕</button></div><div id="modalBody"></div></dialog>
+  <div class="version-mark" id="versionMark">BUILD 1.2.0 · Starting game…</div>
+  <script type="application/json" id="metaInfo">{"build":"v1.2.1-github-standalone","autosave":"localStorage","api":"none"}</script>
+<script>/* Six characters, twelve scenarios each (72 total). Editable game content. */
+window.CURSED_DATA = {
+  "characters": [
+    {
+      "id": "jax",
+      "die": 1,
+      "name": "Jax Carter",
+      "icon": "🏈",
+      "tag": "The Star Player",
+      "major": "Sports Communication",
+      "color": "#e6aa61",
+      "intro": "A popular football player with a packed travel schedule. He is charming, capable, and tempted to optimize any assignment that does not obviously matter.",
+      "strengths": "Speaking, leadership, and connecting with people",
+      "barrier": "Travel, fatigue, and weak relevance cues",
+      "ai": "Asks AI for fast drafts and summaries when practice and classes collide.",
+      "likes": "Speaking, media, and practical leadership",
+      "dislikes": "Abstract mathematics and disconnected lab reports",
+      "goal": "Communicate credibly about sports, leadership, and public issues.",
+      "scenarios": [
+        {
+          "title": "The Discussion That Writes Itself",
+          "course": "Introduction to Psychology",
+          "assignment": "In a weekly discussion, explain how social media might affect attention. Refer to a concept from the unit and reply substantively to two classmates.",
+          "shortcut": "AI can produce a plausible post and two agreeable replies without the student applying the concept.",
+          "constraints": "Asynchronous class; 35-minute target workload; students have different social media experiences.",
+          "quote": "Why write this from scratch when AI can sound thoughtful for me?",
+          "id": "jax-y1-s1",
+          "year": 1,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Jax is returning from an away game; the topic seems less urgent than film study, so he asks AI for a discussion post.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "Numbers Without Thinking",
+          "course": "Quantitative Reasoning",
+          "assignment": "Study a small chart of campus study-time data, choose an appropriate comparison, and explain what the data can and cannot show.",
+          "shortcut": "AI can calculate, narrate, and interpret the chart without the learner evaluating any claim.",
+          "constraints": "Mixed math confidence; limited technology; clear support must be available.",
+          "quote": "I just need the answer, right?",
+          "id": "jax-y1-s2",
+          "year": 1,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "He can talk confidently about statistics on the field, but calls this campus data chart pointless.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Lab Report Shortcut",
+          "course": "Foundations of Science",
+          "assignment": "Use a short provided data set about campus water quality to write an observation, a supported claim, and one limitation.",
+          "shortcut": "AI can generate a full report based on the prompt while bypassing interpretation of evidence.",
+          "constraints": "No special equipment at home; accessible data alternatives; modest writing load.",
+          "quote": "If the results are already there, why am I writing all this?",
+          "id": "jax-y1-s3",
+          "year": 1,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "A late practice means Jax has twenty minutes to submit; he asks AI to interpret the water-quality readings.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Citation Mirage",
+          "course": "College Composition",
+          "assignment": "Compare two short sources about a proposed campus change, identify which claims are supported, and write a short evidence-based recommendation.",
+          "shortcut": "AI can produce polished prose and invented or misrepresented citations.",
+          "constraints": "Students have access to a small source packet and do not need outside paid databases.",
+          "quote": "I can have AI make this sound scholarly.",
+          "id": "jax-y2-s1",
+          "year": 2,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Jax likes persuasive communication but is frustrated that the sources are about a campus policy rather than sports.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "The Ethics Template",
+          "course": "Ethics and Society",
+          "assignment": "Consider whether a university should use facial recognition to take attendance, and defend a recommendation using two ethical considerations.",
+          "shortcut": "AI can generate generic arguments for both sides without genuine weighing of tradeoffs.",
+          "constraints": "Respect privacy; avoid requiring students to disclose sensitive personal experiences.",
+          "quote": "AI can make a balanced argument in seconds.",
+          "id": "jax-y2-s2",
+          "year": 2,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "He sees the attendance-tech ethics discussion as a distraction from actual leadership work.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Group Presentation Machine",
+          "course": "Communication Studies",
+          "assignment": "In teams, propose a realistic campus-wellness initiative, justify its audience and evidence, and present the rationale.",
+          "shortcut": "Students can stitch together AI slides without making decisions or understanding the proposal.",
+          "constraints": "Different schedules and technology; equal contribution should be visible without excessive reporting.",
+          "quote": "Can’t we just let a slide generator do it?",
+          "id": "jax-y2-s3",
+          "year": 2,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Jax volunteers to present the team pitch but lets AI make its evidence and recommendations.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Press Release That Knows Nothing",
+          "course": "Sports Media Writing",
+          "assignment": "Write a press release announcing a team policy change and explain the choices in framing, sourcing, and audience.",
+          "shortcut": "AI can write a credible release with invented quotes and no evidence review.",
+          "constraints": "Limited access to team personnel; use a supplied fictional case packet.",
+          "quote": "I can send one prompt and get a professional release.",
+          "id": "jax-y3-s1",
+          "year": 3,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Jax Carter is now deeply invested in Sports Communication, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "Brand Deal or Bad Deal?",
+          "course": "Athlete Branding",
+          "assignment": "Evaluate two hypothetical sponsorship offers and recommend one based on audience trust, contract terms, and long-term reputation.",
+          "shortcut": "AI can rank deals without considering priorities or scrutinizing the underlying assumptions.",
+          "constraints": "Use accessible contract summaries; avoid real student-athlete financial information.",
+          "quote": "The highest payout seems obvious. Why analyze it?",
+          "id": "jax-y3-s2",
+          "year": 3,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Jax Carter is now deeply invested in Sports Communication, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Viral Apology",
+          "course": "Crisis Communication",
+          "assignment": "Draft and defend a response to a fictional viral incident involving a college athletics organization.",
+          "shortcut": "AI can produce a polished apology that ignores the facts, stakeholders, or accountability.",
+          "constraints": "No actual individuals are accused; two stakeholder voices provided.",
+          "quote": "The chatbot made me sound responsible—job done.",
+          "id": "jax-y3-s3",
+          "year": 3,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Jax Carter is now deeply invested in Sports Communication, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Interview He Cannot Defend",
+          "course": "Sports Journalism Seminar",
+          "assignment": "Plan and conduct a mock interview using an evidence packet; publish a short feature with a verification note.",
+          "shortcut": "AI can invent interview quotations and summaries that never occurred.",
+          "constraints": "Mock interview partner or transcript alternative; consent and accessibility supported.",
+          "quote": "AI already knows how to make people sound inspiring.",
+          "id": "jax-y4-s1",
+          "year": 4,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Jax Carter is now deeply invested in Sports Communication, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Campaign With No Audience",
+          "course": "Strategic Sports Communication",
+          "assignment": "Create a campaign for increased attendance at a fictional women’s sports event, choosing channels, messages, and metrics.",
+          "shortcut": "AI generates a slick campaign without justified audience research or measurement.",
+          "constraints": "Small sample data supplied; no paid platform accounts required.",
+          "quote": "If it looks great on social media, it works, right?",
+          "id": "jax-y4-s2",
+          "year": 4,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Jax Carter is now deeply invested in Sports Communication, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Senior Portfolio Mirage",
+          "course": "Sports Communication Capstone",
+          "assignment": "Submit a portfolio of three communications products and defend revisions made after feedback and ethical review.",
+          "shortcut": "AI can produce an impressive portfolio without Jax owning the decisions.",
+          "constraints": "Multiple formats acceptable; no public posting required.",
+          "quote": "Graduation is close. Does anyone really need to know how I made these?",
+          "id": "jax-y4-s3",
+          "year": 4,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Jax Carter is now deeply invested in Sports Communication, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        }
+      ]
+    },
+    {
+      "id": "elena",
+      "die": 2,
+      "name": "Elena Marquez",
+      "icon": "✒️",
+      "tag": "The Storyweaver",
+      "major": "Creative Writing",
+      "color": "#d5a7e5",
+      "intro": "An aspiring novelist who loves language and interpretation, but finds equations and formulaic reports painfully uninspiring.",
+      "strengths": "Storytelling, empathy, and original ideas",
+      "barrier": "Avoids quantitative subjects and struggles with perfectionism",
+      "ai": "Uses AI to brainstorm; may eventually accept generated passages instead of crafting her own.",
+      "likes": "Creative writing, history, literature, and storytelling",
+      "dislikes": "Algebra, chemistry, and technical reports",
+      "goal": "Become a writer with a distinctive and intentional voice.",
+      "scenarios": [
+        {
+          "title": "The Discussion That Writes Itself",
+          "course": "Introduction to Psychology",
+          "assignment": "In a weekly discussion, explain how social media might affect attention. Refer to a concept from the unit and reply substantively to two classmates.",
+          "shortcut": "AI can produce a plausible post and two agreeable replies without the student applying the concept.",
+          "constraints": "Asynchronous class; 35-minute target workload; students have different social media experiences.",
+          "quote": "Why write this from scratch when AI can sound thoughtful for me?",
+          "id": "elena-y1-s1",
+          "year": 1,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Elena enjoys discussions but thinks required replies are hollow, so she asks AI to write responses that sound more engaged.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "Numbers Without Thinking",
+          "course": "Quantitative Reasoning",
+          "assignment": "Study a small chart of campus study-time data, choose an appropriate comparison, and explain what the data can and cannot show.",
+          "shortcut": "AI can calculate, narrate, and interpret the chart without the learner evaluating any claim.",
+          "constraints": "Mixed math confidence; limited technology; clear support must be available.",
+          "quote": "I just need the answer, right?",
+          "id": "elena-y1-s2",
+          "year": 1,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She freezes when the chart appears and pastes the numbers into an AI chatbot for the entire interpretation.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Lab Report Shortcut",
+          "course": "Foundations of Science",
+          "assignment": "Use a short provided data set about campus water quality to write an observation, a supported claim, and one limitation.",
+          "shortcut": "AI can generate a full report based on the prompt while bypassing interpretation of evidence.",
+          "constraints": "No special equipment at home; accessible data alternatives; modest writing load.",
+          "quote": "If the results are already there, why am I writing all this?",
+          "id": "elena-y1-s3",
+          "year": 1,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Elena finds the lab report dull and asks AI to turn the data into scientific-sounding prose.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Citation Mirage",
+          "course": "College Composition",
+          "assignment": "Compare two short sources about a proposed campus change, identify which claims are supported, and write a short evidence-based recommendation.",
+          "shortcut": "AI can produce polished prose and invented or misrepresented citations.",
+          "constraints": "Students have access to a small source packet and do not need outside paid databases.",
+          "quote": "I can have AI make this sound scholarly.",
+          "id": "elena-y2-s1",
+          "year": 2,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "She loves the writing task but starts using AI to tidy away her own voice and invent support.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "The Ethics Template",
+          "course": "Ethics and Society",
+          "assignment": "Consider whether a university should use facial recognition to take attendance, and defend a recommendation using two ethical considerations.",
+          "shortcut": "AI can generate generic arguments for both sides without genuine weighing of tradeoffs.",
+          "constraints": "Respect privacy; avoid requiring students to disclose sensitive personal experiences.",
+          "quote": "AI can make a balanced argument in seconds.",
+          "id": "elena-y2-s2",
+          "year": 2,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She is curious about the ethics dilemma but lets AI produce the complete balanced argument.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Group Presentation Machine",
+          "course": "Communication Studies",
+          "assignment": "In teams, propose a realistic campus-wellness initiative, justify its audience and evidence, and present the rationale.",
+          "shortcut": "Students can stitch together AI slides without making decisions or understanding the proposal.",
+          "constraints": "Different schedules and technology; equal contribution should be visible without excessive reporting.",
+          "quote": "Can’t we just let a slide generator do it?",
+          "id": "elena-y2-s3",
+          "year": 2,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Elena writes a compelling campaign story, while AI makes all the claims and slides.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Poem With Someone Else’s Voice",
+          "course": "Creative Writing Workshop",
+          "assignment": "Write a poem using a deliberate formal constraint and explain two meaningful craft choices.",
+          "shortcut": "AI can supply polished verse while bypassing experimentation with language.",
+          "constraints": "Students may opt for another creative form; critique must be respectful.",
+          "quote": "The AI poem sounds better than mine.",
+          "id": "elena-y3-s1",
+          "year": 3,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Elena Marquez is now deeply invested in Creative Writing, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Workshop That Goes Nowhere",
+          "course": "Peer Critique",
+          "assignment": "Give specific, actionable feedback on peers’ short stories, citing particular passages and intended effects.",
+          "shortcut": "AI gives generic compliments and line edits without actually reading for craft.",
+          "constraints": "Peer work stays in class; boundaries for content and tone are explicit.",
+          "quote": "I don’t want to hurt feelings—AI can give the critique.",
+          "id": "elena-y3-s2",
+          "year": 3,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Elena Marquez is now deeply invested in Creative Writing, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Plot Generator",
+          "course": "Narrative Design",
+          "assignment": "Pitch two plausible plot directions, explain the tradeoffs, and revise one after a reader’s response.",
+          "shortcut": "AI can create an entire plot arc, obscuring Elena’s choices as a storyteller.",
+          "constraints": "Short excerpts and oral or written pitches allowed.",
+          "quote": "I’ll get a plot from AI and make it mine later.",
+          "id": "elena-y3-s3",
+          "year": 3,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Elena Marquez is now deeply invested in Creative Writing, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Literary Analysis Machine",
+          "course": "Advanced Literature",
+          "assignment": "Defend a reading of a short story by closely analyzing passages and considering a competing interpretation.",
+          "shortcut": "AI provides a fluent interpretation without careful textual evidence.",
+          "constraints": "All readings provided with accessible formats; no paywalled text.",
+          "quote": "AI has already written a perfect close reading.",
+          "id": "elena-y4-s1",
+          "year": 4,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Elena Marquez is now deeply invested in Creative Writing, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Novel Draft Shortcut",
+          "course": "Fiction Studio",
+          "assignment": "Submit a draft chapter, a revision log, and a note on how feedback changed craft decisions.",
+          "shortcut": "AI can produce a finished chapter and fabricate a revision process.",
+          "constraints": "Flexible genre choices; revision artifacts can be brief.",
+          "quote": "The generated chapter is smoother than my third draft.",
+          "id": "elena-y4-s2",
+          "year": 4,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Elena Marquez is now deeply invested in Creative Writing, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Author Behind the Portfolio",
+          "course": "Creative Writing Capstone",
+          "assignment": "Curate an original writing portfolio and defend how craft choices reflect a developing authorial voice.",
+          "shortcut": "AI can deliver polished work without authentic authorship or an explainable process.",
+          "constraints": "Private submission and alternatives to live readings are provided.",
+          "quote": "I want to graduate with writing that is actually mine—but time is running out.",
+          "id": "elena-y4-s3",
+          "year": 4,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Elena Marquez is now deeply invested in Creative Writing, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        }
+      ]
+    },
+    {
+      "id": "priya",
+      "die": 3,
+      "name": "Priya Desai",
+      "icon": "🧬",
+      "tag": "The Perfectionist",
+      "major": "Biology / Pre-Med",
+      "color": "#93d7ca",
+      "intro": "An ambitious pre-med student who values excellent work and fears mistakes. Her shortcuts are often about achieving perfect-looking results.",
+      "strengths": "Discipline, preparation, and scientific curiosity",
+      "barrier": "Grade anxiety and a punishing workload",
+      "ai": "Uses AI to polish answers, prepare study guides, and fill gaps too quickly.",
+      "likes": "Biology, psychology, and chemistry",
+      "dislikes": "Ambiguous reflection tasks and open-ended personal writing",
+      "goal": "Build scientific judgment she can trust in high-stakes settings.",
+      "scenarios": [
+        {
+          "title": "The Discussion That Writes Itself",
+          "course": "Introduction to Psychology",
+          "assignment": "In a weekly discussion, explain how social media might affect attention. Refer to a concept from the unit and reply substantively to two classmates.",
+          "shortcut": "AI can produce a plausible post and two agreeable replies without the student applying the concept.",
+          "constraints": "Asynchronous class; 35-minute target workload; students have different social media experiences.",
+          "quote": "Why write this from scratch when AI can sound thoughtful for me?",
+          "id": "priya-y1-s1",
+          "year": 1,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Priya wants full marks, so she has AI draft a polished discussion that mentions every key term.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "Numbers Without Thinking",
+          "course": "Quantitative Reasoning",
+          "assignment": "Study a small chart of campus study-time data, choose an appropriate comparison, and explain what the data can and cannot show.",
+          "shortcut": "AI can calculate, narrate, and interpret the chart without the learner evaluating any claim.",
+          "constraints": "Mixed math confidence; limited technology; clear support must be available.",
+          "quote": "I just need the answer, right?",
+          "id": "priya-y1-s2",
+          "year": 1,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She can compute the values but relies on AI for a flawless explanation instead of testing her reasoning.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Lab Report Shortcut",
+          "course": "Foundations of Science",
+          "assignment": "Use a short provided data set about campus water quality to write an observation, a supported claim, and one limitation.",
+          "shortcut": "AI can generate a full report based on the prompt while bypassing interpretation of evidence.",
+          "constraints": "No special equipment at home; accessible data alternatives; modest writing load.",
+          "quote": "If the results are already there, why am I writing all this?",
+          "id": "priya-y1-s3",
+          "year": 1,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Priya knows the scientific material yet lets AI write a lab interpretation to save time.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Citation Mirage",
+          "course": "College Composition",
+          "assignment": "Compare two short sources about a proposed campus change, identify which claims are supported, and write a short evidence-based recommendation.",
+          "shortcut": "AI can produce polished prose and invented or misrepresented citations.",
+          "constraints": "Students have access to a small source packet and do not need outside paid databases.",
+          "quote": "I can have AI make this sound scholarly.",
+          "id": "priya-y2-s1",
+          "year": 2,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "She uses AI to polish citations until she can no longer tell which claims appear in the sources.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "The Ethics Template",
+          "course": "Ethics and Society",
+          "assignment": "Consider whether a university should use facial recognition to take attendance, and defend a recommendation using two ethical considerations.",
+          "shortcut": "AI can generate generic arguments for both sides without genuine weighing of tradeoffs.",
+          "constraints": "Respect privacy; avoid requiring students to disclose sensitive personal experiences.",
+          "quote": "AI can make a balanced argument in seconds.",
+          "id": "priya-y2-s2",
+          "year": 2,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "Priya wants the ethically correct answer and asks AI to choose it rather than working through the tension.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Group Presentation Machine",
+          "course": "Communication Studies",
+          "assignment": "In teams, propose a realistic campus-wellness initiative, justify its audience and evidence, and present the rationale.",
+          "shortcut": "Students can stitch together AI slides without making decisions or understanding the proposal.",
+          "constraints": "Different schedules and technology; equal contribution should be visible without excessive reporting.",
+          "quote": "Can’t we just let a slide generator do it?",
+          "id": "priya-y2-s3",
+          "year": 2,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "She redoes the team’s entire presentation with AI because imperfect slides make her anxious.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Perfect Graph",
+          "course": "Cell Biology Laboratory",
+          "assignment": "Interpret a supplied experiment graph and explain a limitation and plausible alternative explanation.",
+          "shortcut": "AI can produce a scientific interpretation without data scrutiny.",
+          "constraints": "Same dataset for everyone; no wet lab access required.",
+          "quote": "If AI gives the correct result, why risk my own explanation?",
+          "id": "priya-y3-s1",
+          "year": 3,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Priya Desai is now deeply invested in Biology / Pre-Med, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Literature Summary Trap",
+          "course": "Scientific Literature",
+          "assignment": "Compare two papers with competing findings and justify which evidence supports a narrower claim.",
+          "shortcut": "AI can summarize abstracts without evaluating methodology and uncertainty.",
+          "constraints": "Papers provided and readable; limited reading load.",
+          "quote": "I need an accurate synthesis, fast.",
+          "id": "priya-y3-s2",
+          "year": 3,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Priya Desai is now deeply invested in Biology / Pre-Med, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Differential Diagnosis Shortcut",
+          "course": "Human Physiology",
+          "assignment": "Reason through a fictional patient case and identify which evidence would change a preliminary explanation.",
+          "shortcut": "AI can jump to an answer without showing provisional reasoning or uncertainty.",
+          "constraints": "Educational simulation only; no real patient data.",
+          "quote": "The model answered instantly. What am I missing?",
+          "id": "priya-y3-s3",
+          "year": 3,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Priya Desai is now deeply invested in Biology / Pre-Med, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Statistical Significance Spell",
+          "course": "Biostatistics",
+          "assignment": "Analyze a small study summary and distinguish statistical findings from practical or clinical importance.",
+          "shortcut": "AI can run the test while glossing over assumptions, sample size, and relevance.",
+          "constraints": "Calculations may use tools; interpretation must be justified.",
+          "quote": "The p-value is below the threshold—done.",
+          "id": "priya-y4-s1",
+          "year": 4,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Priya Desai is now deeply invested in Biology / Pre-Med, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Research Poster Illusion",          "course": "Undergraduate Research",
+          "assignment": "Design a research poster from provided results, showing justified claims and where evidence is uncertain.",
+          "shortcut": "AI can generate an impressive poster and overstate conclusions.",
+          "constraints": "Template and accessible presentation alternatives included.",
+          "quote": "The polished poster looks publishable—does that mean the study is strong?",
+          "id": "priya-y4-s2",
+          "year": 4,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Priya Desai is now deeply invested in Biology / Pre-Med, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Defense of Uncertainty",
+          "course": "Biology Capstone",
+          "assignment": "Defend a research recommendation, identify limitations, and respond to a plausible competing interpretation.",
+          "shortcut": "AI can create confident recommendations without owning uncertainty.",
+          "constraints": "Faculty role-play uses fictional evidence; no clinical advice.",
+          "quote": "I need to demonstrate judgment, not just memorized facts.",
+          "id": "priya-y4-s3",
+          "year": 4,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Priya Desai is now deeply invested in Biology / Pre-Med, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        }
+      ]
+    },
+    {
+      "id": "marcus",
+      "die": 4,
+      "name": "Marcus Reed",
+      "icon": "💼",
+      "tag": "The Night Scholar",
+      "major": "Business Administration",
+      "color": "#f4c483",
+      "intro": "A working student balancing shifts, family commitments, and college. He wants every hour of coursework to have a purpose.",
+      "strengths": "Practical judgment, perseverance, and workplace experience",
+      "barrier": "Limited time and unpredictable scheduling",
+      "ai": "Uses AI as a survival tool when deadlines collide with work.",
+      "likes": "Applied management, economics, and workplace communication",
+      "dislikes": "Long repetitive tasks without visible payoff",
+      "goal": "Make decisions that improve organizations and people’s work.",
+      "scenarios": [
+        {
+          "title": "The Discussion That Writes Itself",
+          "course": "Introduction to Psychology",
+          "assignment": "In a weekly discussion, explain how social media might affect attention. Refer to a concept from the unit and reply substantively to two classmates.",
+          "shortcut": "AI can produce a plausible post and two agreeable replies without the student applying the concept.",
+          "constraints": "Asynchronous class; 35-minute target workload; students have different social media experiences.",
+          "quote": "Why write this from scratch when AI can sound thoughtful for me?",
+          "id": "marcus-y1-s1",
+          "year": 1,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Marcus finishes a work shift late; he wants the discussion to count for something but has minutes left before the deadline.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "Numbers Without Thinking",
+          "course": "Quantitative Reasoning",
+          "assignment": "Study a small chart of campus study-time data, choose an appropriate comparison, and explain what the data can and cannot show.",
+          "shortcut": "AI can calculate, narrate, and interpret the chart without the learner evaluating any claim.",
+          "constraints": "Mixed math confidence; limited technology; clear support must be available.",
+          "quote": "I just need the answer, right?",
+          "id": "marcus-y1-s2",
+          "year": 1,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "He uses statistics at work but this unfamiliar chart feels like another hurdle, so he outsources the explanation.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Lab Report Shortcut",
+          "course": "Foundations of Science",
+          "assignment": "Use a short provided data set about campus water quality to write an observation, a supported claim, and one limitation.",
+          "shortcut": "AI can generate a full report based on the prompt while bypassing interpretation of evidence.",
+          "constraints": "No special equipment at home; accessible data alternatives; modest writing load.",
+          "quote": "If the results are already there, why am I writing all this?",
+          "id": "marcus-y1-s3",
+          "year": 1,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "The water-quality data might matter to his neighborhood, but the assignment hides that relevance beneath report formatting.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Citation Mirage",
+          "course": "College Composition",
+          "assignment": "Compare two short sources about a proposed campus change, identify which claims are supported, and write a short evidence-based recommendation.",
+          "shortcut": "AI can produce polished prose and invented or misrepresented citations.",
+          "constraints": "Students have access to a small source packet and do not need outside paid databases.",
+          "quote": "I can have AI make this sound scholarly.",
+          "id": "marcus-y2-s1",
+          "year": 2,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Marcus asks AI to turn sources into a recommendation while he handles work and childcare.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "The Ethics Template",
+          "course": "Ethics and Society",
+          "assignment": "Consider whether a university should use facial recognition to take attendance, and defend a recommendation using two ethical considerations.",
+          "shortcut": "AI can generate generic arguments for both sides without genuine weighing of tradeoffs.",
+          "constraints": "Respect privacy; avoid requiring students to disclose sensitive personal experiences.",
+          "quote": "AI can make a balanced argument in seconds.",
+          "id": "marcus-y2-s2",
+          "year": 2,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "He cares about workplace privacy but struggles to find time to write the ethics argument.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Group Presentation Machine",
+          "course": "Communication Studies",
+          "assignment": "In teams, propose a realistic campus-wellness initiative, justify its audience and evidence, and present the rationale.",
+          "shortcut": "Students can stitch together AI slides without making decisions or understanding the proposal.",
+          "constraints": "Different schedules and technology; equal contribution should be visible without excessive reporting.",
+          "quote": "Can’t we just let a slide generator do it?",
+          "id": "marcus-y2-s3",
+          "year": 2,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "His group cannot meet synchronously; a teammate proposes letting AI assemble the entire pitch.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Case Study on Autopilot",
+          "course": "Management Principles",
+          "assignment": "Diagnose a fictional small company’s turnover problem and justify a feasible action.",
+          "shortcut": "AI can give generic management advice without relating it to constraints or evidence.",
+          "constraints": "Workplace case contains all required details and no confidential data.",
+          "quote": "I’ve lived this. Why does the assignment feel so abstract?",
+          "id": "marcus-y3-s1",
+          "year": 3,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Marcus Reed is now deeply invested in Business Administration, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Budget That Balances Wrong",
+          "course": "Managerial Accounting",
+          "assignment": "Review a budget scenario, identify one questionable assumption, and recommend an adjustment.",
+          "shortcut": "AI can calculate totals without noticing flawed assumptions.",
+          "constraints": "Spreadsheet template provided; calculators and AI allowed for arithmetic.",
+          "quote": "If the totals add up, isn’t that enough?",
+          "id": "marcus-y3-s2",
+          "year": 3,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Marcus Reed is now deeply invested in Business Administration, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Marketing Plan Factory",
+          "course": "Marketing Strategy",
+          "assignment": "Create a small-business marketing recommendation with explicit audience, evidence, and success measures.",
+          "shortcut": "AI can create slick slogans and tactics with no rationale or customer evidence.",
+          "constraints": "Use a fictional local business and a small data packet.",
+          "quote": "This deck could be done before my shift begins.",
+          "id": "marcus-y3-s3",
+          "year": 3,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Marcus Reed is now deeply invested in Business Administration, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Policy Memo with No Workers",
+          "course": "Organizational Behavior",
+          "assignment": "Recommend a scheduling policy while analyzing consequences for staff, managers, and customers.",
+          "shortcut": "AI produces a plausible memo without consulting worker perspectives or tradeoffs.",
+          "constraints": "Multiple employee perspectives supplied; no interviews required.",
+          "quote": "That policy would never work on a real shift.",
+          "id": "marcus-y4-s1",
+          "year": 4,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Marcus Reed is now deeply invested in Business Administration, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The AI Sales Forecast",
+          "course": "Operations Strategy",
+          "assignment": "Evaluate an AI-generated demand forecast and decide what to do under uncertainty.",
+          "shortcut": "AI can make overconfident predictions without transparent assumptions.",
+          "constraints": "Two short scenario forecasts provided; no specialized software needed.",
+          "quote": "The model predicts growth, so we should act.",
+          "id": "marcus-y4-s2",
+          "year": 4,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Marcus Reed is now deeply invested in Business Administration, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Manager Who Must Decide",
+          "course": "Business Capstone",
+          "assignment": "Pitch an operating plan for a fictional organization, justify priorities, and defend one rejected alternative.",
+          "shortcut": "AI can produce the presentation while masking Marcus’s judgment.",
+          "constraints": "Flexible delivery format; realistic workload and accessible data.",
+          "quote": "I need to show what I would actually do as a manager.",
+          "id": "marcus-y4-s3",
+          "year": 4,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Marcus Reed is now deeply invested in Business Administration, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        }
+      ]
+    },
+    {
+      "id": "zoe",
+      "die": 5,
+      "name": "Zoe Kim",
+      "icon": "💻",
+      "tag": "The Code Mage",
+      "major": "Computer Science",
+      "color": "#99bff5",
+      "intro": "A creative builder who sees AI as a normal part of modern work. Sometimes she confuses producing a functioning result with understanding it.",
+      "strengths": "Prototyping, debugging, and curiosity about tools",
+      "barrier": "Overconfidence in automated output and impatience with writing",
+      "ai": "Frequently asks coding assistants for complete solutions.",
+      "likes": "Programming, logic, and engineering problems",
+      "dislikes": "Broad discussion prompts and vague reflection requirements",
+      "goal": "Become a developer who can explain, audit, and maintain systems.",
+      "scenarios": [
+        {
+          "title": "The Discussion That Writes Itself",
+          "course": "Introduction to Psychology",
+          "assignment": "In a weekly discussion, explain how social media might affect attention. Refer to a concept from the unit and reply substantively to two classmates.",
+          "shortcut": "AI can produce a plausible post and two agreeable replies without the student applying the concept.",
+          "constraints": "Asynchronous class; 35-minute target workload; students have different social media experiences.",
+          "quote": "Why write this from scratch when AI can sound thoughtful for me?",
+          "id": "zoe-y1-s1",
+          "year": 1,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Zoe believes prompting is a skill and has AI produce a discussion post before reading the module.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "Numbers Without Thinking",
+          "course": "Quantitative Reasoning",
+          "assignment": "Study a small chart of campus study-time data, choose an appropriate comparison, and explain what the data can and cannot show.",
+          "shortcut": "AI can calculate, narrate, and interpret the chart without the learner evaluating any claim.",
+          "constraints": "Mixed math confidence; limited technology; clear support must be available.",
+          "quote": "I just need the answer, right?",
+          "id": "zoe-y1-s2",
+          "year": 1,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She scripts the data calculation but barely considers whether the chart supports the written claim.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Lab Report Shortcut",
+          "course": "Foundations of Science",
+          "assignment": "Use a short provided data set about campus water quality to write an observation, a supported claim, and one limitation.",
+          "shortcut": "AI can generate a full report based on the prompt while bypassing interpretation of evidence.",
+          "constraints": "No special equipment at home; accessible data alternatives; modest writing load.",
+          "quote": "If the results are already there, why am I writing all this?",
+          "id": "zoe-y1-s3",
+          "year": 1,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Zoe runs the numbers through AI and accepts its lab explanation without checking what the data actually show.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Citation Mirage",
+          "course": "College Composition",
+          "assignment": "Compare two short sources about a proposed campus change, identify which claims are supported, and write a short evidence-based recommendation.",
+          "shortcut": "AI can produce polished prose and invented or misrepresented citations.",
+          "constraints": "Students have access to a small source packet and do not need outside paid databases.",
+          "quote": "I can have AI make this sound scholarly.",
+          "id": "zoe-y2-s1",
+          "year": 2,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "She asks AI to locate the sources and discovers some of its polished references are not real.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "The Ethics Template",
+          "course": "Ethics and Society",
+          "assignment": "Consider whether a university should use facial recognition to take attendance, and defend a recommendation using two ethical considerations.",
+          "shortcut": "AI can generate generic arguments for both sides without genuine weighing of tradeoffs.",
+          "constraints": "Respect privacy; avoid requiring students to disclose sensitive personal experiences.",
+          "quote": "AI can make a balanced argument in seconds.",
+          "id": "zoe-y2-s2",
+          "year": 2,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She treats the ethics problem like a logic puzzle and asks AI for the neatest answer.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Group Presentation Machine",
+          "course": "Communication Studies",
+          "assignment": "In teams, propose a realistic campus-wellness initiative, justify its audience and evidence, and present the rationale.",
+          "shortcut": "Students can stitch together AI slides without making decisions or understanding the proposal.",
+          "constraints": "Different schedules and technology; equal contribution should be visible without excessive reporting.",
+          "quote": "Can’t we just let a slide generator do it?",
+          "id": "zoe-y2-s3",
+          "year": 2,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Zoe automates the group deck and assumes that makes her the strongest contributor.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Code That Runs but Isn’t Understood",
+          "course": "Software Foundations II",
+          "assignment": "Implement a small feature and explain two design decisions and one test that reveals a failure.",
+          "shortcut": "Coding AI can produce working code the student cannot explain.",
+          "constraints": "Starter repo provided; assistive tools allowed; oral or written explanation.",
+          "quote": "It compiles. Why should I rewrite anything?",
+          "id": "zoe-y3-s1",
+          "year": 3,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Zoe Kim is now deeply invested in Computer Science, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Hallucinated Library",
+          "course": "Web Development",
+          "assignment": "Evaluate an AI-suggested package, check its documentation, and defend whether it belongs in a project.",
+          "shortcut": "AI can recommend nonexistent or unsafe packages with convincing explanations.",
+          "constraints": "Use sample docs offline; no account creation required.",
+          "quote": "The AI says this dependency handles everything.",
+          "id": "zoe-y3-s2",
+          "year": 3,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Zoe Kim is now deeply invested in Computer Science, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Tests That Never Test",
+          "course": "Software Testing",
+          "assignment": "Write tests for a supplied function, identify an edge case, and explain what remains untested.",
+          "shortcut": "AI can generate tests that merely confirm the happy path.",
+          "constraints": "Test environment and sample code supplied.",
+          "quote": "Green checkmarks mean we’re done, right?",
+          "id": "zoe-y3-s3",
+          "year": 3,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Zoe Kim is now deeply invested in Computer Science, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Algorithmic Shortcut",
+          "course": "Algorithms",
+          "assignment": "Compare two plausible algorithms for a realistic constraint and defend a tradeoff.",
+          "shortcut": "AI can supply optimized code without understanding time, space, or input assumptions.",
+          "constraints": "Pseudocode accepted; accessible complexity reference sheet.",
+          "quote": "The model already selected the fastest option.",
+          "id": "zoe-y4-s1",
+          "year": 4,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Zoe Kim is now deeply invested in Computer Science, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Biased Recommendation Engine",
+          "course": "Responsible Computing",
+          "assignment": "Audit a fictional recommender’s outputs for a potential failure mode and propose a feasible mitigation.",
+          "shortcut": "AI can create an ethics checklist without actually auditing the output.",
+          "constraints": "Synthetic data provided; no sensitive individual records.",          "quote": "The ethics section can be generated after the code.",
+          "id": "zoe-y4-s2",
+          "year": 4,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Zoe Kim is now deeply invested in Computer Science, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The System Nobody Can Maintain",
+          "course": "Computer Science Capstone",
+          "assignment": "Demonstrate a software prototype, defend its architecture, and explain a maintenance risk and verification plan.",
+          "shortcut": "AI generates a polished system whose owner cannot debug or maintain it.",
+          "constraints": "Small scoped project; recorded demo or live demo options.",
+          "quote": "If it works today, do I really need to understand every part?",
+          "id": "zoe-y4-s3",
+          "year": 4,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Zoe Kim is now deeply invested in Computer Science, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        }
+      ]
+    },
+    {
+      "id": "talia",
+      "die": 6,
+      "name": "Talia Brooks",
+      "icon": "🫶",
+      "tag": "The Empath",
+      "major": "Psychology / Human Services",
+      "color": "#f0abb5",
+      "intro": "An insightful listener drawn to helping others. She is engaged when coursework feels human, but formal academic tasks can shake her confidence.",
+      "strengths": "Listening, interpretation, and considering others’ perspectives",
+      "barrier": "Uncertainty in academic writing and technical methods",
+      "ai": "Uses AI to find words and structure when she doubts her own voice.",
+      "likes": "Psychology, sociology, and ethical dilemmas",
+      "dislikes": "Decontextualized statistics and impersonal technical writing",
+      "goal": "Serve people responsibly using evidence and empathy.",
+      "scenarios": [
+        {
+          "title": "The Discussion That Writes Itself",
+          "course": "Introduction to Psychology",
+          "assignment": "In a weekly discussion, explain how social media might affect attention. Refer to a concept from the unit and reply substantively to two classmates.",
+          "shortcut": "AI can produce a plausible post and two agreeable replies without the student applying the concept.",
+          "constraints": "Asynchronous class; 35-minute target workload; students have different social media experiences.",
+          "quote": "Why write this from scratch when AI can sound thoughtful for me?",
+          "id": "talia-y1-s1",
+          "year": 1,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Talia has genuine ideas but worries her replies sound too informal; she lets AI write them in an academic voice.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "Numbers Without Thinking",
+          "course": "Quantitative Reasoning",
+          "assignment": "Study a small chart of campus study-time data, choose an appropriate comparison, and explain what the data can and cannot show.",
+          "shortcut": "AI can calculate, narrate, and interpret the chart without the learner evaluating any claim.",
+          "constraints": "Mixed math confidence; limited technology; clear support must be available.",
+          "quote": "I just need the answer, right?",
+          "id": "talia-y1-s2",
+          "year": 1,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She understands students’ experiences but loses confidence when the chart requires quantitative interpretation.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Lab Report Shortcut",
+          "course": "Foundations of Science",
+          "assignment": "Use a short provided data set about campus water quality to write an observation, a supported claim, and one limitation.",
+          "shortcut": "AI can generate a full report based on the prompt while bypassing interpretation of evidence.",
+          "constraints": "No special equipment at home; accessible data alternatives; modest writing load.",
+          "quote": "If the results are already there, why am I writing all this?",
+          "id": "talia-y1-s3",
+          "year": 1,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "She recognizes the human implications of water quality, yet uses AI to create a formal lab report.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Citation Mirage",
+          "course": "College Composition",
+          "assignment": "Compare two short sources about a proposed campus change, identify which claims are supported, and write a short evidence-based recommendation.",
+          "shortcut": "AI can produce polished prose and invented or misrepresented citations.",
+          "constraints": "Students have access to a small source packet and do not need outside paid databases.",
+          "quote": "I can have AI make this sound scholarly.",
+          "id": "talia-y2-s1",
+          "year": 2,
+          "order": 1,
+          "majorSpecific": false,
+          "characterContext": "Talia wants to represent people fairly but asks AI to write the evidence comparison because she doubts her wording.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Motivation and learning visibility"
+        },
+        {
+          "title": "The Ethics Template",
+          "course": "Ethics and Society",
+          "assignment": "Consider whether a university should use facial recognition to take attendance, and defend a recommendation using two ethical considerations.",
+          "shortcut": "AI can generate generic arguments for both sides without genuine weighing of tradeoffs.",
+          "constraints": "Respect privacy; avoid requiring students to disclose sensitive personal experiences.",
+          "quote": "AI can make a balanced argument in seconds.",
+          "id": "talia-y2-s2",
+          "year": 2,
+          "order": 2,
+          "majorSpecific": false,
+          "characterContext": "She is invested in the privacy dilemma but lets AI select a position to avoid saying the wrong thing.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Group Presentation Machine",
+          "course": "Communication Studies",
+          "assignment": "In teams, propose a realistic campus-wellness initiative, justify its audience and evidence, and present the rationale.",
+          "shortcut": "Students can stitch together AI slides without making decisions or understanding the proposal.",
+          "constraints": "Different schedules and technology; equal contribution should be visible without excessive reporting.",
+          "quote": "Can’t we just let a slide generator do it?",
+          "id": "talia-y2-s3",
+          "year": 2,
+          "order": 3,
+          "majorSpecific": false,
+          "characterContext": "Talia conducts a meaningful group conversation, then lets AI produce the entire final pitch.",
+          "prompt": "Redesign this assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Evidence-based reasoning and reasonable support"
+        },
+        {
+          "title": "The Case Reflection Without Listening",
+          "course": "Developmental Psychology",
+          "assignment": "Interpret a fictional developmental case using evidence and consider a competing explanation.",
+          "shortcut": "AI can generate empathetic conclusions without close attention to the case.",
+          "constraints": "Cases avoid graphic content and offer written alternatives.",
+          "quote": "AI makes it sound compassionate, but did I understand the person?",
+          "id": "talia-y3-s1",
+          "year": 3,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Talia Brooks is now deeply invested in Psychology / Human Services, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Helping Plan Template",
+          "course": "Helping Skills",
+          "assignment": "Recommend a supportive next step for a fictional student and justify boundaries and referral choices.",
+          "shortcut": "AI can create a generic plan that ignores context or professional limits.",
+          "constraints": "No diagnosis; options for sensitive topic substitution.",
+          "quote": "The chatbot has a plan that sounds caring.",
+          "id": "talia-y3-s2",
+          "year": 3,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Talia Brooks is now deeply invested in Psychology / Human Services, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Interview Script Trap",
+          "course": "Qualitative Methods",
+          "assignment": "Design interview questions for a fictional needs assessment and explain how phrasing affects responses.",
+          "shortcut": "AI can generate leading questions dressed up as neutrality.",
+          "constraints": "Role-play or written simulation; informed consent emphasized.",
+          "quote": "AI made the questions sound professional.",
+          "id": "talia-y3-s3",
+          "year": 3,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Talia Brooks is now deeply invested in Psychology / Human Services, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Correlation Story",
+          "course": "Research Methods",
+          "assignment": "Interpret a small study about stress and sleep and explain what cannot be concluded from correlation.",
+          "shortcut": "AI can draw causal conclusions too confidently.",
+          "constraints": "Small accessible dataset provided; tools permitted for calculations.",
+          "quote": "The report sounds definitive. Is the evidence?",
+          "id": "talia-y4-s1",
+          "year": 4,
+          "order": 1,
+          "majorSpecific": true,
+          "characterContext": "Talia Brooks is now deeply invested in Psychology / Human Services, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Advocacy Campaign Shortcut",
+          "course": "Community Psychology",
+          "assignment": "Design a realistic outreach strategy informed by the perspectives of affected community members.",
+          "shortcut": "AI can propose generic solutions without stakeholder perspectives.",
+          "constraints": "Fictional stakeholder interviews supplied; no real-world solicitation.",
+          "quote": "The AI already has a list of good interventions.",
+          "id": "talia-y4-s2",
+          "year": 4,
+          "order": 2,
+          "majorSpecific": true,
+          "characterContext": "Talia Brooks is now deeply invested in Psychology / Human Services, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        },
+        {
+          "title": "The Ethical Handoff",
+          "course": "Human Services Capstone",
+          "assignment": "Defend a fictional support plan, explain ethical boundaries, and identify what still requires supervision or referral.",
+          "shortcut": "AI can output a plausible plan without nuanced judgment or accountability.",
+          "constraints": "No real clients; reflective written or oral defense options.",
+          "quote": "I want to be helpful, but I must know what I cannot responsibly do.",
+          "id": "talia-y4-s3",
+          "year": 4,
+          "order": 3,
+          "majorSpecific": true,
+          "characterContext": "Talia Brooks is now deeply invested in Psychology / Human Services, but the assignment still invites shortcuts that could conceal the intended learning.",
+          "prompt": "Redesign this major-specific assessment. Explain one purposeful AI-friction move AND how the redesign supports at least one of: meaningful practice, a reason to engage, reasonable conditions and friction.",
+          "focus": "Authentic disciplinary decisions and transparency about AI"
+        }
+      ]
+    }
+  ],
+  "years": [
+    {
+      "year": 1,
+      "name": "The Hall of Beginnings",
+      "short": "Foundations",
+      "sub": "General education • discovering why learning matters",
+      "lore": "The first bell rings. Freshmen enter believing a finished assignment is the same thing as understanding."
+    },
+    {
+      "year": 2,
+      "name": "The Library of Echoes",
+      "short": "Inquiry",
+      "sub": "General education • evidence, ethics, and collaboration",
+      "lore": "The library returns every answer anyone has ever submitted. Only careful judgment distinguishes an echo from an insight."
+    },
+    {
+      "year": 3,
+      "name": "The Tower of Trials",
+      "short": "Application",
+      "sub": "Major courses • making real disciplinary decisions",
+      "lore": "Advanced coursework turns generic answers to dust. To proceed, your character must own the reasoning behind their work."
+    },
+    {
+      "year": 4,
+      "name": "The Hall of Ascension",
+      "short": "Mastery",
+      "sub": "Major courses • demonstrating readiness",
+      "lore": "Graduation is in sight, but the final doors open only for work grounded in understanding rather than appearance."
+    }
+  ],
+  "framework": [
+    {
+      "id": "ai",
+      "name": "Purposeful AI friction",
+      "description": "Identify a plausible AI shortcut and create proportionate conditions, evidence, or accountability that protect the thinking students must practice."
+    },
+    {
+      "id": "practice",
+      "name": "Meaningful practice",
+      "description": "Make learners practice a specific form of thinking and demonstrate it."
+    },
+    {
+      "id": "engage",
+      "name": "A reason to engage",
+      "description": "Make purpose, relevance, audience, or meaningful choice visible."
+    },
+    {
+      "id": "reasonable",
+      "name": "Reasonable conditions and friction",
+      "description": "Balance learning protection with workload, accessibility, support, and clear AI boundaries."
+    }
+  ]
+};
+</script><script>/* Cursed University — static GitHub Pages edition. No API calls, no external scoring. */
+'use strict';
+(() => {
+const DATA = window.CURSED_DATA;
+if (!DATA) { document.body.textContent = 'Game data failed to load. Keep assets/data.js beside the game.'; return; }
+const KEY = 'cursed-university-v1';
+const $ = id => document.getElementById(id);
+const escapeHTML = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fresh = () => ({table:'',character:'',answers:{},yearComplete:{},bossScores:{},bossResponses:{},bossRolls:{},graduationScore:0,graduationResponse:'',graduationComplete:false});
+let state = fresh();
+try {const x=JSON.parse(localStorage.getItem(KEY)||'null'); if(x&&typeof x==='object'&&DATA.characters.some(c=>c.id===x.character)) state={...fresh(),...x};}catch{}
+let currentYear=1, currentTab=1, currentScreen='welcomeScreen', doorBusy=false;
+let currentMessage='';
+let scenarioAttempted=false;
+let toastTimer=null;
+function flashNotice(message,type='info'){
+ const toast=$('saveToast');clearTimeout(toastTimer);
+ toast.textContent=message;toast.className='save-toast '+type;
+ toastTimer=setTimeout(()=>toast.classList.add('hidden'),6500);
+}
+function updateScenarioRequirements(){
+ const friction=$('frictionText').value.trim().length;
+ const redesign=$('redesignText').value.trim().length;
+ const checks=Array.from(document.querySelectorAll('[name="framework"]:checked')).length;
+ const valid=[friction>=15,redesign>=15,checks>0];
+ const labels=[
+  `AI friction response (${friction}/15 minimum characters)`,
+  `Assessment redesign response (${redesign}/15 minimum characters)`,
+  'Choose at least one redesign element'
+ ];
+ ['checkFriction','checkRedesign','checkFramework'].forEach((id,i)=>{
+  $(id).className='requirement'+(valid[i]?' met':'');
+  $(id).textContent=(valid[i]?'✓ ':'○ ')+labels[i];
+ });
+ $('completionCount').textContent=valid.filter(Boolean).length+' of 3 ready';
+ $('frictionCount').textContent=friction+' / 15 minimum characters';
+ $('redesignCount').textContent=redesign+' / 15 minimum characters';
+ $('frictionCount').classList.toggle('complete',valid[0]);
+ $('redesignCount').classList.toggle('complete',valid[1]);
+ $('submissionGuide').classList.toggle('attention',scenarioAttempted&&!valid.every(Boolean));
+ $('frictionText').setAttribute('aria-invalid',String(scenarioAttempted&&!valid[0]));
+ $('redesignText').setAttribute('aria-invalid',String(scenarioAttempted&&!valid[1]));
+ $('frameworkField').classList.toggle('field-error',scenarioAttempted&&!valid[2]);
+ if(scenarioAttempted&&valid.every(Boolean)){$('scenarioNotice').textContent='All three requirements are met. Select Save Design & Continue to advance.';$('scenarioNotice').className='notice success'}
+ return valid;
+}
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch(err){return false}}
+function char(){return DATA.characters.find(c=>c.id===state.character)||DATA.characters[0]}
+function pointTotal(){return Math.min(100,Object.values(state.bossScores).reduce((n,v)=>n+(Number(v)||0),0)+(Number(state.graduationScore)||0))}
+function stageIndex(){let k=pointTotal();return k<=20?0:k<=40?1:k<=60?2:k<=80?3:4}
+const stageNames=['Stage I · First Spark','Stage II · Curiosity Stirs','Stage III · Reasoning Awakens','Stage IV · Deep Understanding','Stage V · Fully Awakened'];
+function complete(y){return !!state.yearComplete[y]}
+function allYearsComplete(){return [1,2,3,4].every(complete)}
+function isUnlocked(y){return y===1||complete(y-1)}
+function currentScenarios(y){return char().scenarios.filter(s=>s.year===y)}
+function answer(s){return state.answers[s.id]||{friction:'',redesign:'',frameworks:[],submitted:false}}
+function showScreen(id){document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id===id));currentScreen=id;$('globalBar').classList.toggle('hidden',['welcomeScreen','rollScreen','revealScreen','doorScreen'].includes(id));updateGlobal();window.scrollTo({top:0,behavior:'instant'});}
+function announce(msg){$('screen-reader-status').textContent=msg}
+function updateGlobal(){if(!state.character)return;$('partyStatus').textContent=(state.table||'Your Party')+' · '+char().name;$('yearStatus').textContent=allYearsComplete()?'Four Years Complete':'Year '+([1,2,3,4].find(y=>!complete(y))||4)+' / 4';$('globalPoints').textContent=pointTotal()+' / 100 KP'}
+function charMini(){const c=char();return `<div class="char-mini-icon" style="border-color:${c.color}">${c.icon}</div><div><h3>${escapeHTML(c.name)}</h3><p>${escapeHTML(c.major)} · ${escapeHTML(c.tag)}</p></div>`}
+function brainMarkup(){const p=pointTotal(), idx=stageIndex(), s=.44 + .56*(p/100), color=['#ad9aa0','#d7b38f','#e5be91','#9ddbc0','#d4ffda'][idx],glow=idx>=3?'#63ffd5':'#dcb583';return `<svg viewBox="0 0 200 190" role="img" aria-label="Glass dome containing a brain at ${p} of 100 Knowledge Points, ${stageNames[idx]}"><defs><radialGradient id="brainGrad"><stop stop-color="#ffe6c2"/><stop offset=".7" stop-color="${color}"/><stop offset="1" stop-color="#ae7280"/></radialGradient><linearGradient id="glass" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#edffff" stop-opacity=".26"/><stop offset=".3" stop-color="#b9f2f3" stop-opacity=".04"/><stop offset=".78" stop-color="#eaffff" stop-opacity=".03"/><stop offset="1" stop-color="#ffffff" stop-opacity=".3"/></linearGradient><radialGradient id="glow"><stop stop-color="${glow}" stop-opacity="${idx===4?.44:.17}"/><stop offset="1" stop-color="${glow}" stop-opacity="0"/></radialGradient></defs><ellipse cx="100" cy="145" rx="79" ry="22" fill="url(#glow)"/><g transform="translate(100 105) scale(${s}) translate(-100 -105)"><g class="brain-pulse"><path d="M97 62C89 40 55 46 50 65C27 65 27 90 41 99C29 119 44 138 64 134C74 150 90 146 100 137C110 148 129 147 138 132C163 135 175 111 160 97C173 80 160 62 143 63C137 43 113 43 103 60Z" fill="url(#brainGrad)" stroke="#c08c94" stroke-width="3"/><g stroke="#9c647a" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".86"><path d="M97 62Q85 77 96 91Q106 106 100 137M75 54Q63 70 72 87Q56 99 62 117M121 53Q137 68 122 84Q144 94 135 113M49 76Q67 72 75 91M44 109Q61 100 79 119M151 74Q139 75 132 94M161 105Q144 106 130 127M83 73Q100 71 108 88M91 118Q114 118 120 135"/></g></g></g><path d="M32 142V91Q32 28 100 26Q168 28 168 91V142" fill="url(#glass)" stroke="#d5eff1" stroke-opacity=".78" stroke-width="3"/><path d="M47 135V91Q47 53 72 42" fill="none" stroke="#f2ffff" stroke-opacity=".55" stroke-linecap="round" stroke-width="5"/><path d="M147 54Q155 76 154 110" fill="none" stroke="#eaffff" stroke-opacity=".32" stroke-linecap="round" stroke-width="3"/><rect x="26" y="139" width="148" height="17" rx="4" fill="#a6875b" stroke="#ddc28d" stroke-width="2"/><rect x="33" y="156" width="134" height="12" rx="3" fill="#55432d"/><rect x="43" y="169" width="114" height="7" rx="3" fill="#927049"/><text x="100" y="151" fill="#281c15" font-size="9" text-anchor="middle" font-family="Georgia" font-weight="bold">BRAIN OF UNDERSTANDING</text></svg>`}
+function updateBrains(){document.querySelectorAll('#mapBrain,#roomBrain,#gradBrain').forEach(el=>{el.innerHTML=brainMarkup();el.classList.toggle('complete',pointTotal()===100)});$('brainStageName').textContent=stageNames[stageIndex()];$('mapFill').style.width=pointTotal()+'%';$('mapKPLabel').textContent=pointTotal()+' / 100 KP';updateGlobal()}
+function setupRoll(){showScreen('rollScreen');$('tableName').value=state.table||'';$('diceSelect').value='';$('revealBtn').disabled=true}
+function reveal(){let dice=Number($('diceSelect').value), c=DATA.characters.find(c=>c.die===dice);if(!c)return;state=fresh();state.character=c.id;state.table=$('tableName').value.trim()||'Table '+dice;save();$('revealProfile').innerHTML=`<div class="eyebrow">DIE FACE ${dice} · ${escapeHTML(c.tag)}</div><h3>${escapeHTML(c.name)}</h3><p class="major">${escapeHTML(c.major)}</p><p>${escapeHTML(c.intro)}</p><dl><dt>Strengths</dt><dd>${escapeHTML(c.strengths)}</dd><dt>Barrier</dt><dd>${escapeHTML(c.barrier)}</dd><dt>Relationship with AI</dt><dd>${escapeHTML(c.ai)}</dd><dt>Loves</dt><dd>${escapeHTML(c.likes)}</dd><dt>Avoids</dt><dd>${escapeHTML(c.dislikes)}</dd><dt>Four-year goal</dt><dd>${escapeHTML(c.goal)}</dd></dl>`;$('revealIcon').textContent=c.icon;$('revealNameArt').textContent=c.name;showScreen('revealScreen')}
+function renderCampus(message){updateBrains();$('mapCharacter').innerHTML=charMini();$('campusMessage').textContent=message||currentMessage||'Click an illuminated building to continue the journey.';let root=$('buildingButtons');root.replaceChildren();for(let y=1;y<=4;y++){const year=DATA.years[y-1],done=complete(y),unlocked=isUnlocked(y);const b=document.createElement('button');b.className='building-btn'+(unlocked?'':' locked');b.type='button';b.setAttribute('aria-label',`${year.name}, year ${y}, ${done?'completed':unlocked?'unlocked':'locked'}`);b.innerHTML=`<span class="building-roof"></span><span class="building-structure"></span><span class="building-windows">${'<span></span>'.repeat(8)}</span><span class="building-door"></span><span class="building-label">YEAR ${y} · ${escapeHTML(year.short)}<small>${done?'✓ Complete':unlocked?'Enter building':'🔒 Locked'}</small></span>`;b.addEventListener('click',()=>{if(!unlocked){openModal('Building sealed',`<p>Complete Year ${y-1} and its boss encounter to unlock this building.</p>`);return}enterDoor(y)});root.appendChild(b)}$('yearList').innerHTML=DATA.years.map(y=>`<div class="year-entry ${complete(y.year)?'done':''}"><strong>Year ${y.year}</strong><span>${complete(y.year)?'✓ Complete':isUnlocked(y.year)?'◈ Unlocked':'🔒 Sealed'}</span></div>`).join('');$('graduationBtn').classList.toggle('hidden',!allYearsComplete());$('graduationBtn').textContent=state.graduationComplete&&pointTotal()===100?'VIEW GRADUATION ✦':'FACE GRADUATION ➜';showScreen('campusScreen')}
+async function enterDoor(y){if(doorBusy)return;doorBusy=true;currentYear=y;$('doorTitle').textContent='ENTERING '+DATA.years[y-1].name.toUpperCase();showScreen('doorScreen');document.querySelector('.door-backdrop').classList.remove('open');await new Promise(r=>setTimeout(r,160));document.querySelector('.door-backdrop').classList.add('open');await new Promise(r=>setTimeout(r,1450));doorBusy=false;renderYear();showScreen('yearScreen')}
+function scenarioComplete(y,n){const s=currentScenarios(y)[n-1];return !!(s&&answer(s).submitted)}
+function allScenariosDone(y){return [1,2,3].every(n=>scenarioComplete(y,n))}
+function renderYear(){updateBrains();const y=DATA.years[currentYear-1];$('roomTitle').textContent=y.name;$('roomYear').textContent='YEAR '+currentYear+' · '+y.short.toUpperCase();$('roomCharacter').innerHTML=charMini();if(currentTab<4&&currentTab>1&&!scenarioComplete(currentYear,currentTab-1))currentTab=1;if(complete(currentYear))currentTab=4;else{let first=[1,2,3].find(n=>!scenarioComplete(currentYear,n));currentTab=first||4}renderTabs();renderActiveTab()}
+function renderTabs(){let tabs=$('scenarioTabs');tabs.replaceChildren();for(let tab=1;tab<=4;tab++){let unlocked=tab===1 || (tab<=3?scenarioComplete(currentYear,tab-1):allScenariosDone(currentYear));let b=document.createElement('button');b.className='scenario-tab'+(tab===currentTab?' active':'')+(tab<4&&scenarioComplete(currentYear,tab)?' done':'')+(tab===4&&complete(currentYear)?' done':'');b.textContent=tab===4?'⚔ BOSS':`SCENE ${tab}${scenarioComplete(currentYear,tab)?' ✓':''}`;b.disabled=!unlocked;b.addEventListener('click',()=>{currentTab=tab;renderTabs();renderActiveTab()});tabs.append(b)}}
+function renderActiveTab(){const isBoss=currentTab===4;$('scenarioForm').classList.toggle('hidden',isBoss);$('bossPanel').classList.toggle('hidden',!isBoss);$('roomProgress').textContent=isBoss?'Boss Encounter':`Scenario ${currentTab} of 3`;$('roomFooterMessage').textContent=isBoss?'Earn 0, 10, or 20 KP with a defensible response.':'Finish three scenarios to face the Chancellor.';if(isBoss){renderBoss()}else{renderScenario()} }
+function renderScenario(){const s=currentScenarios(currentYear)[currentTab-1];if(!s)return;const a=answer(s);$('scenarioDetails').innerHTML=`<div class="course-title">${escapeHTML(s.course)} · SCENE ${currentTab}</div><h3>${escapeHTML(s.title)}</h3><div class="story-card"><strong>Where ${escapeHTML(char().name)} is now</strong><p>${escapeHTML(s.characterContext)}</p><p class="speech">“${escapeHTML(s.quote)}”</p></div><div class="story-card"><strong>Original assessment</strong><p>${escapeHTML(s.assignment)}</p></div><div class="story-card"><strong>Shortcut available</strong><p>${escapeHTML(s.shortcut)}</p></div><div class="story-card"><strong>Design conditions</strong><p>${escapeHTML(s.constraints)}</p></div><div class="story-card"><strong>Party mission</strong><p>${escapeHTML(s.prompt)}</p></div>`;$('frictionText').value=a.friction;$('redesignText').value=a.redesign;document.querySelectorAll('[name="framework"]').forEach(cb=>cb.checked=(a.frameworks||[]).includes(cb.value));$('scenarioNotice').textContent=a.submitted?'Design saved. You can revisit and revise it.':'';$('scenarioNotice').className='notice'+(a.submitted?' success':'');$('saveScenarioBtn').textContent=a.submitted?'UPDATE DESIGN & CONTINUE ➜':'SAVE DESIGN & CONTINUE ➜';scenarioAttempted=false;updateScenarioRequirements();}
+function getScenarioDraft(){return {friction:$('frictionText').value,redesign:$('redesignText').value,frameworks:Array.from(document.querySelectorAll('[name="framework"]:checked')).map(cb=>cb.value)}}
+function saveDraft(){if(currentTab>3||!state.character)return;const s=currentScenarios(currentYear)[currentTab-1];if(!s)return;state.answers[s.id]={...answer(s),...getScenarioDraft()};save();updateScenarioRequirements()}
+function submitScenario(evt){
+ if(evt)evt.preventDefault();
+ try{
+  scenarioAttempted=true;
+  const valid=updateScenarioRequirements();
+  if(!valid.every(Boolean)){
+   const missing=[];
+   if(!valid[0])missing.push('AI friction (15+ characters)');
+   if(!valid[1])missing.push('assessment redesign (15+ characters)');
+   if(!valid[2])missing.push('a framework checkbox');
+   const msg='Still needed: '+missing.join('; ')+'.';
+   $('scenarioNotice').textContent=msg;
+   $('scenarioNotice').className='notice error';
+   $('saveFeedback').textContent=msg;
+   $('saveFeedback').className='save-feedback error';
+   flashNotice(msg,'error');
+   announce(msg);
+   return;
+  }
+  const scenario=currentScenarios(currentYear)[currentTab-1];
+  if(!scenario)throw new Error('No scenario was found for this chapter.');
+  const savedNumber=currentTab;
+  const draft=getScenarioDraft();
+  // Atomically commit both answers and submitted status; never mutate a stale reference.
+  state.answers[scenario.id]={...answer(scenario),...draft,submitted:true};
+  const persistOK=save();
+  currentTab=savedNumber<3?savedNumber+1:4;
+  renderTabs();
+  renderActiveTab();
+  const message=savedNumber<3
+   ?`Scenario ${savedNumber} SAVED! You are now on Scenario ${savedNumber+1} of 3.`
+   :'ALL THREE SCENARIOS SAVED! Your Chancellor boss battle is ready.';
+  $('saveFeedback').textContent=message+(persistOK?'':' Note: the browser did not permit persistent storage; keep this tab open.');
+  $('saveFeedback').className='save-feedback success';
+  flashNotice(message,'success');
+  announce(message);
+  window.scrollTo({top:0,behavior:'auto'});
+  const scrollPanel=$('scenarioDetails');if(scrollPanel)scrollPanel.scrollTop=0;
+ }catch(err){
+  const message='The game could not advance. Your answers are still shown here. Error: '+(err?.message||String(err));
+  $('scenarioNotice').textContent=message;
+  $('scenarioNotice').className='notice error';
+  $('saveFeedback').textContent=message;
+  $('saveFeedback').className='save-feedback error';
+  flashNotice(message,'error');
+  announce(message);
+  console.error('Scenario save failure',err); }
+}
+const challengeTypes=[
+ {key:'bypass',name:'The Bypass Attack',question:'I can ask AI to produce the assignment anyway. Where will your student have to demonstrate the thinking the assignment intends to develop?'},
+ {key:'motivation',name:'The Motivation Attack',question:'Your redesign asks for effort. Why should this student care enough to undertake the learning rather than choose the fastest submission?'},
+ {key:'friction',name:'The Friction Attack',question:'Have your safeguards increased workload, accessibility barriers, or surveillance without protecting meaningful practice? Defend the proportionality of your design.'},
+ {key:'twist',name:'The Unexpected Constraint',question:'Half the class has limited time and inconsistent access to devices. Which element of your redesign could you adapt without surrendering the central learning?'},
+ {key:'critical',name:'Critical Challenge: The Chancellor’s Gambit',question:'A student submits excellent AI-produced work and eloquently describes the assignment. How do you know the intended thinking happened, and what limitation must you still accept?'}
+];
+function attackFromRoll(n){return n<=5?challengeTypes[0]:n<=10?challengeTypes[1]:n<=15?challengeTypes[2]:n<=19?challengeTypes[3]:challengeTypes[4]}
+function samplePrevious(){return currentScenarios(currentYear).map(s=>{const a=answer(s);return `<div class="story-card"><strong>${escapeHTML(s.title)}</strong><p>${escapeHTML(a.redesign.slice(0,250))}${a.redesign.length>250?'…':''}</p></div>`}).join('')}
+function renderBoss(){const y=DATA.years[currentYear-1],prior=Number(state.bossScores[currentYear]||0),roll=Number(state.bossRolls[currentYear]||0);$('scenarioDetails').innerHTML=`<div class="course-title">YEAR ${currentYear} · ANNUAL BOSS</div><h3>The Chancellor's Challenge</h3><div class="story-card"><strong>Chapter completed</strong><p>${escapeHTML(y.lore)}</p></div><div class="story-card"><strong>Your party's three proposals</strong><p>Review the work the Chancellor may challenge. Use your earlier designs to support the defense.</p></div>${samplePrevious()}<div class="story-card"><strong>Scoring</strong><p>10 KP: purposeful AI friction. 10 KP: a defensible use of any one of the three redesign elements. 20 KP possible for this annual boss.</p></div>`;$('bossDialogue').textContent=`“${char().name} has submitted three impressive-looking assignments. But have they learned anything? Roll your die. I dare you to defend your designs.”`;$('bossResponse').value=state.bossResponses[currentYear]||'';$('dieValue').textContent=roll||'d20';$('manualDie').value='';$('frictionAward').checked=!!state.bossCriteria?.[currentYear]?.ai;$('frameworkAward').checked=!!state.bossCriteria?.[currentYear]?.framework;updateBossPreview();$('bossRetryHelp').textContent=complete(currentYear)?`Your previous confirmed award is ${prior}/20 KP. You may improve this defense; only additional points will be added.`:'';showChallenge();$('bossNotice').textContent=complete(currentYear)?'Annual encounter complete. To improve, make a stronger defense and request a higher evaluation.':'';$('bossNotice').className='notice'+(complete(currentYear)?' success':'')}
+function showChallenge(){const roll=Number(state.bossRolls[currentYear]||0);if(!roll){$('bossChallenge').textContent='Roll the die to reveal the Chancellor’s attack. Dice select the challenge; they never determine Knowledge Points.';return}const c=attackFromRoll(roll);$('bossChallenge').innerHTML=`<strong>${escapeHTML(c.name)} · d20 ${roll}</strong><p>${escapeHTML(c.question)}</p>`;announce('Rolled '+roll+'. '+c.name)}
+function setBossRoll(n){if(!Number.isInteger(n)||n<1||n>20)return false;state.bossRolls[currentYear]=n;save();$('dieValue').textContent=n;showChallenge();return true}
+function updateBossPreview(){$('scorePreview').innerHTML=`Proposed score: <strong>${($('frictionAward').checked?10:0)+($('frameworkAward').checked?10:0)} / 20 KP</strong>`}
+function scoreAnnual(){const roll=Number(state.bossRolls[currentYear]);const response=$('bossResponse').value.trim();if(!roll){$('bossNotice').textContent='Roll a d20 before submitting a boss defense.';$('bossNotice').className='notice error';return}if(response.length<25){$('bossNotice').textContent='Your table needs a more developed defense (at least 25 characters).';$('bossNotice').className='notice error';return}let score=($('frictionAward').checked?10:0)+($('frameworkAward').checked?10:0), old=Number(state.bossScores[currentYear]||0);state.bossScores[currentYear]=Math.max(score,old);state.bossResponses[currentYear]=response;state.bossCriteria??={};state.bossCriteria[currentYear]={ai:$('frictionAward').checked,framework:$('frameworkAward').checked};state.yearComplete[currentYear]=true;save();let added=state.bossScores[currentYear]-old;currentMessage=`Year ${currentYear} complete. Your party earned ${added} new KP (${state.bossScores[currentYear]}/20 possible for this encounter). ${currentYear===4?'The Commencement Trial has opened.':'The next building is now unlocked.'}`;if(allYearsComplete()&&pointTotal()===100&&state.graduationScore===20){state.graduationComplete=true;save();renderVictory();return}renderCampus(currentMessage);announce(currentMessage)}
+function enterGraduation(){if(!allYearsComplete())return;if(state.graduationComplete&&pointTotal()===100){renderVictory();return}$('gradCharacter').innerHTML=charMini();$('gradResponse').value=state.graduationResponse||'';$('gradFriction').checked=!!state.gradCriteria?.ai;$('gradFramework').checked=!!state.gradCriteria?.framework;updateGradPreview();$('gradNotice').textContent=pointTotal()<80?'Your brain chamber still needs points from previous annual boss defenses. You can attempt this final defense now, then revisit those earlier encounters.':'';$('gradNotice').className='notice';updateBrains();showScreen('graduationScreen')}
+function updateGradPreview(){$('gradScorePreview').innerHTML=`Proposed score: <strong>${($('gradFriction').checked?10:0)+($('gradFramework').checked?10:0)} / 20 KP</strong>`}
+function scoreGraduation(){let response=$('gradResponse').value.trim();if(response.length<40){$('gradNotice').textContent='Include a specific assessment design and an honest remaining limitation (at least 40 characters).';$('gradNotice').className='notice error';return}let award=($('gradFriction').checked?10:0)+($('gradFramework').checked?10:0), old=Number(state.graduationScore||0);state.graduationScore=Math.max(old,award);state.graduationResponse=response;state.gradCriteria={ai:$('gradFriction').checked,framework:$('gradFramework').checked};save();updateBrains();if(pointTotal()===100){state.graduationComplete=true;save();renderVictory();return}$('gradNotice').textContent=`The Chancellor awarded ${state.graduationScore}/20 KP for commencement. The dome is at ${pointTotal()}/100. To graduate, strengthen any incomplete annual defense or your final defense, and ask the facilitator to confirm the improvement.`;$('gradNotice').className='notice';announce($('gradNotice').textContent)}
+function renderVictory(){$('diplomaName').textContent=(state.table||'Your Party')+' — guiding '+char().name;updateBrains();showScreen('victoryScreen')}
+function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;$('infoModal').showModal()}
+function reviewSaved(){const lines=[];for(let y=1;y<=4;y++){lines.push(`<h4>Year ${y} · ${escapeHTML(DATA.years[y-1].name)} — ${Number(state.bossScores[y]||0)} / 20 KP</h4>`);for(let s of currentScenarios(y)){const a=answer(s);lines.push(`<details><summary>${escapeHTML(s.title)} ${a.submitted?'✓':''}</summary><p><strong>AI friction:</strong> ${escapeHTML(a.friction||'—')}</p><p><strong>Redesign:</strong> ${escapeHTML(a.redesign||'—')}</p><p><strong>Elements:</strong> ${escapeHTML((a.frameworks||[]).join(', ')||'—')}</p></details>`)}}lines.push(`<h4>Commencement — ${Number(state.graduationScore||0)} / 20 KP</h4><p>${escapeHTML(state.graduationResponse||'Not yet attempted.')}</p><p>Total: ${pointTotal()} / 100 KP</p>`);openModal('Saved Chronicle',lines.join(''))}
+function reviewFramework(){openModal('The three elements + purposeful AI friction',`<p><strong>Every assessed defense has TWO scoring dimensions:</strong></p><dl><dt>10 KP — Purposeful AI friction</dt><dd>Identify how AI could bypass intended thinking, and propose a specific, proportionate strategy that makes the thinking observable. A ban or busywork alone is not enough.</dd><dt>10 KP — At least one redesign element</dt><dd><strong>Meaningful practice:</strong> What must students be able to do, and what thinking do they actually practice?<br><strong>A reason to engage:</strong> Why does the work feel relevant, worthwhile, or purposeful?<br><strong>Reasonable conditions and friction:</strong> Are AI boundaries clear, workload manageable, and support and access adequate?</dd></dl><p>Scenarios are formative preparation. Boss defenses are scored by a facilitator, not automatically by the game. No single assessment is invulnerable; a strong design can acknowledge limitations.</p>`)}
+$('welcomeStart').addEventListener('click',setupRoll);
+$('diceSelect').addEventListener('change',()=>{$('revealBtn').disabled=!$('diceSelect').value});
+$('revealBtn').addEventListener('click',reveal);
+$('enterCampusBtn').addEventListener('click',()=>renderCampus('Your first college building is illuminated. Enter Year 1.'));
+$('homeBtn').addEventListener('click',()=>{if(state.character)renderCampus()});
+$('resetBtn').addEventListener('click',()=>{if(window.confirm('Restart the entire adventure? This clears the current party, every written response, and all Knowledge Points on this device.')){state=fresh();save();showScreen('welcomeScreen');announce('Adventure reset')}});
+$('returnCampusBtn').addEventListener('click',()=>{saveDraft();renderCampus()});
+// Direct click handler avoids reliance on implicit HTML form submission.
+$('saveScenarioBtn').addEventListener('click',submitScenario);
+$('scenarioForm').addEventListener('submit',event=>{event.preventDefault();submitScenario()});
+['frictionText','redesignText'].forEach(id=>$(id).addEventListener('input',saveDraft));
+document.querySelectorAll('[name="framework"]').forEach(cb=>cb.addEventListener('change',saveDraft));
+$('rollBossBtn').addEventListener('click',()=>setBossRoll(Math.floor(Math.random()*20)+1));
+$('useManualDie').addEventListener('click',()=>{if(!setBossRoll(Number($('manualDie').value))){$('bossNotice').textContent='Enter a whole number from 1 through 20.';$('bossNotice').className='notice error'}});
+$('bossResponse').addEventListener('input',()=>{state.bossResponses[currentYear]=$('bossResponse').value;save()});
+['frictionAward','frameworkAward'].forEach(id=>$(id).addEventListener('change',updateBossPreview));
+$('submitBossBtn').addEventListener('click',scoreAnnual);
+$('quickReviewBtn').addEventListener('click',reviewFramework);
+$('reviewWorkBtn').addEventListener('click',reviewSaved);
+$('graduationBtn').addEventListener('click',enterGraduation);
+['gradFriction','gradFramework'].forEach(id=>$(id).addEventListener('change',updateGradPreview));
+$('gradResponse').addEventListener('input',()=>{state.graduationResponse=$('gradResponse').value;save()});
+$('submitGradBtn').addEventListener('click',scoreGraduation);
+$('gradCampusBtn').addEventListener('click',()=>renderCampus());
+$('victoryCampusBtn').addEventListener('click',()=>renderCampus('The degree has been earned. Your Chronicle is complete.'));
+$('printDiplomaBtn').addEventListener('click',()=>window.print());
+$('closeInfoModal').addEventListener('click',()=>$('infoModal').close());
+$('infoModal').addEventListener('click',e=>{if(e.target===$('infoModal'))$('infoModal').close()});
+$('versionMark').textContent='BUILD 1.2.1 · Standalone GitHub edition';
+window.addEventListener('error',event=>{if(currentScreen==='yearScreen'&&!$('scenarioForm').classList.contains('hidden')){
+ const msg='Game error: '+(event.message||'Unknown error')+' — please capture this text for troubleshooting.';
+ $('saveFeedback').textContent=msg;$('saveFeedback').className='save-feedback error';
+}});
+if(state.character){renderCampus('Welcome back. Your progress has been restored from this device.')}else{showScreen('welcomeScreen')}
+})();
+</script></body>
+</html>
