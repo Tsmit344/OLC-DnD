@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a0c18">
+  <meta name="description" content="Cursed University: A four-year, six-character, tabletop adventure in assessment redesign, AI friction, and meaningful learning.">
+  <title>Cursed University | The Degree of Understanding</title>
+  <link rel="stylesheet" href="./assets/style.css?v=1.2.0">
+  <script src="./assets/data.js?v=1.2.0" defer></script>
+  <script src="./assets/game.js?v=1.2.0" defer></script>
+</head>
+<body>
+  <div id="screen-reader-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="saveToast" class="save-toast hidden" role="status" aria-live="polite"></div>
+  <div class="weather-layer" aria-hidden="true"><span class="mist mist-a"></span><span class="mist mist-b"></span></div>
+  <header id="globalBar" class="global-bar hidden">
+    <button class="brand-button" id="homeBtn" type="button">✦ CURSED UNIVERSITY</button>
+    <div class="global-middle"><span id="partyStatus">Party not assigned</span><span id="yearStatus">Year 1 / 4</span></div>
+    <div class="global-right"><strong id="globalPoints">0 / 100 KP</strong><button type="button" id="resetBtn" class="minor-btn">↺ Reset</button></div>
+  </header>
+
+  <main id="appMain">
+    <!-- WELCOME -->
+    <section id="welcomeScreen" class="screen active" aria-labelledby="welcomeTitle">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="welcome-content">
+        <div class="eyebrow">A four-year tabletop adventure</div>
+        <div class="welcome-sigil" aria-hidden="true">✦</div>
+        <h1 id="welcomeTitle">CURSED<br><span>UNIVERSITY</span></h1>
+        <p class="lead">The Degree of Understanding</p>
+        <div class="welcome-story parchment">
+          <p>At the university where every answer comes easily, something terrible has happened: <strong>the work gets submitted, but the learning has vanished.</strong></p>
+          <p>The Chancellor of Shortcuts has sealed the <strong>Brain of Understanding</strong> beneath glass. Your party must guide one student through four academic years, redesign the assessments they encounter, and restore the power of learning before commencement.</p>
+        </div>
+        <button class="cta" id="welcomeStart" type="button">ENTER THE ADVENTURE <span aria-hidden="true">➜</span></button>
+        <div class="welcome-footnote">6 characters · 4 years · 12 scenarios per character · 5 scored encounters</div>
+      </div>
+    </section>
+
+    <!-- ROLL -->
+    <section id="rollScreen" class="screen" aria-labelledby="rollTitle">
+      <div class="center-wrap narrow">
+        <div class="eyebrow">Chapter 00 · The Choosing</div>
+        <h2 id="rollTitle" class="display-title">THE ROLL OF DESTINY</h2>
+        <p class="screen-intro">Each table is a party of designers. Roll a physical six-sided die at your table. The number determines whose college journey your party will protect.</p>
+        <div class="panel roll-panel">
+          <div class="dice-emblem" aria-hidden="true">⚄</div>
+          <label for="tableName">Your party / table name</label>
+          <input id="tableName" type="text" maxlength="45" placeholder="e.g., The Night Scholars" autocomplete="off">
+          <label for="diceSelect">What number did your table roll?</label>
+          <select id="diceSelect"><option value="">Choose your roll...</option><option value="1">⚀ — 1</option><option value="2">⚁ — 2</option><option value="3">⚂ — 3</option><option value="4">⚃ — 4</option><option value="5">⚄ — 5</option><option value="6">⚅ — 6</option></select>
+          <p class="quiet">The roll chooses your character; it does not affect your educational score.</p>
+          <button class="cta fill" id="revealBtn" type="button" disabled>REVEAL YOUR CHARACTER</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVEAL -->
+    <section id="revealScreen" class="screen" aria-labelledby="revealTitle">
+      <div class="center-wrap reveal-layout">
+        <div>
+          <div class="eyebrow">The path has chosen you</div>
+          <h2 id="revealTitle" class="display-title">YOUR STUDENT</h2>
+          <p class="screen-intro">Your party will encounter this student's strengths, interests, obligations, and temptations across four years.</p>
+          <div class="panel reveal-profile" id="revealProfile"></div>
+          <button class="cta" id="enterCampusBtn" type="button">BEGIN YEAR ONE ➜</button>
+        </div>
+        <div class="portrait-scene"><div class="portrait-rune" id="revealIcon">✦</div><div id="revealNameArt" class="portrait-caption"></div></div>
+      </div>
+    </section>
+
+    <!-- CAMPUS -->
+    <section id="campusScreen" class="screen" aria-labelledby="campusTitle">
+      <div class="campus-header"><div class="eyebrow">The adventure map</div><h2 id="campusTitle" class="display-title">THE CURSED CAMPUS</h2><p id="campusMessage">Select the illuminated building to begin.</p></div>
+      <div class="campus-layout">
+        <div class="campus-scene" id="campusStage">
+          <svg class="campus-painting" viewBox="0 0 1200 690" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Spooky university campus at night with four old Gothic college buildings, fog, dark evergreens, cobblestone paths, and moonlight">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#060a1c"/><stop offset=".59" stop-color="#253047"/><stop offset="1" stop-color="#4e473e"/></linearGradient>
+              <linearGradient id="stone" x1="0" x2=".9" y1="0" y2="1"><stop stop-color="#414350"/><stop offset=".6" stop-color="#292d3c"/><stop offset="1" stop-color="#171c2b"/></linearGradient>
+              <radialGradient id="moonGlow"><stop stop-color="#f1e9b6" stop-opacity=".7"/><stop offset=".25" stop-color="#dbd8af" stop-opacity=".2"/><stop offset="1" stop-color="#a9a4b3" stop-opacity="0"/></radialGradient>
+              <filter id="blurFog"><feGaussianBlur stdDeviation="16"/></filter>
+              <pattern id="brick" width="36" height="18" patternUnits="userSpaceOnUse"><path d="M0 0H36M0 18H36M18 0V9M0 9H36M0 9V18M36 9V18" stroke="#777484" stroke-opacity=".13" fill="none"/></pattern>
+            </defs>
+            <rect width="1200" height="690" fill="url(#sky)"/>
+            <circle cx="920" cy="124" r="220" fill="url(#moonGlow)"/><circle cx="920" cy="124" r="39" fill="#e7e1c2" opacity=".82"/>
+            <g fill="#e8daa6" opacity=".72"><circle cx="90" cy="75" r="1.6"/><circle cx="212" cy="120" r="1"/><circle cx="380" cy="48" r="1.8"/><circle cx="730" cy="69" r="1.7"/><circle cx="1105" cy="90" r="1"/><circle cx="1030" cy="240" r="1.5"/></g>
+            <path d="M0 346L150 270 280 333 408 240 520 304 670 234 790 297 920 245 1100 300 1200 230V500H0Z" fill="#151d2a"/>
+            <path d="M0 430L90 320 178 443 245 338 330 460 403 352 501 440 640 318 788 442 930 305 1030 431 1155 321 1200 389V570H0Z" fill="#101b22"/>
+            <g fill="#091419" opacity=".95"><path d="M0 475l31-93 32 93zM48 489l36-118 39 118zM150 485l27-90 30 90zM320 476l29-104 34 104zM531 479l32-115 39 115zM850 484l37-123 40 123zM1070 481l43-126 48 126z"/></g>
+            <path d="M0 490Q300 465 580 495T1200 473V690H0Z" fill="#1c2929"/>
+            <path d="M450 690Q510 546 585 494L610 494Q672 570 738 690Z" fill="#6a6763"/>
+            <path d="M490 690L590 495 618 495 690 690Z" fill="#76736d" opacity=".7"/>
+            <g stroke="#31383b" stroke-width="3" opacity=".55"><path d="M0 606Q600 567 1200 606M0 652Q600 615 1200 649" fill="none"/><path d="M570 500L524 689M600 501L594 690M630 506L674 690"/></g>
+            <g fill="#d4d4b9" opacity=".22" filter="url(#blurFog)"><ellipse cx="180" cy="524" rx="240" ry="22"/><ellipse cx="940" cy="508" rx="260" ry="27"/><ellipse cx="620" cy="610" rx="410" ry="29"/></g>
+            <g opacity=".65" fill="#f8d998"><circle cx="86" cy="524" r="8"/><circle cx="1102" cy="528" r="8"/></g>
+            <g stroke="#161d21" stroke-width="8"><path d="M86 518v86M1102 522v87"/></g>
+          </svg>
+          <div id="buildingButtons" class="building-buttons"></div>
+          <div class="campus-sign">✦ CURSED UNIVERSITY ✦ <span>EST. IN ANOTHER AGE</span></div>
+        </div>
+        <aside class="map-side panel">
+          <div class="panel-heading">YOUR CHRONICLE</div>
+          <div class="char-mini" id="mapCharacter"></div>
+          <div id="yearList" class="year-list"></div>
+          <div class="mini-dome"><div class="eyebrow">The Brain of Understanding</div><div id="mapBrain" class="brain-home"></div><div class="mini-progress"><div id="mapFill" class="mini-progress-fill"></div></div><div id="mapKPLabel" class="quiet">0 / 100 KP</div></div>
+          <button id="graduationBtn" class="cta fill hidden" type="button">FACE GRADUATION ➜</button>
+          <button id="reviewWorkBtn" class="minor-btn fill" type="button">Review saved designs</button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- DOOR TRANSITION -->
+    <section id="doorScreen" class="screen" aria-label="Entering academic building">
+      <div class="door-backdrop"><div class="door-arch"><div class="door-glow"></div><div class="door-panel left"></div><div class="door-panel right"></div></div><div class="door-title" id="doorTitle">THE DOORS ARE OPENING...</div></div>
+    </section>
+
+    <!-- ROOM SCENARIOS -->
+    <section id="yearScreen" class="screen" aria-labelledby="roomTitle">
+      <div class="room-bar"><button class="minor-btn" id="returnCampusBtn" type="button">← Campus</button><div><div class="eyebrow" id="roomYear">Year One</div><h2 id="roomTitle" class="room-title">The Hall of Beginnings</h2></div><div id="roomProgress" class="room-progress">Scenario 1 of 3</div></div>
+      <div class="room-grid">
+        <aside class="panel narrative-column">
+          <div class="panel-heading">THE STUDENT'S JOURNEY</div>
+          <div class="char-mini" id="roomCharacter"></div>
+          <div class="scenario-tabs" id="scenarioTabs"></div>
+          <div class="scenario-scroll" id="scenarioDetails"></div>
+        </aside>
+        <div class="panel work-column">
+          <div class="win-titlebar"><span>COURSE-RECOVERY TERMINAL</span><span class="fake-controls" aria-hidden="true">▁ □ ×</span></div>
+          <div class="work-content">
+            <div class="work-intro"><span class="eyebrow">YOUR TABLE'S REDESIGN</span><h3>Outthink the shortcut</h3><p>Collaborate before typing. You must address <strong>AI friction</strong> and <strong>at least one</strong> redesign element.</p></div>
+            <form id="scenarioForm" novalidate>
+              <div id="submissionGuide" class="submission-guide" aria-label="Requirements to continue">
+                <div class="submission-guide-title"><strong>Before you can continue</strong><span id="completionCount">0 of 3 ready</span></div>
+                <div id="checkFriction" class="requirement">○ AI friction response (15+ characters)</div>
+                <div id="checkRedesign" class="requirement">○ Assessment redesign response (15+ characters)</div>
+                <div id="checkFramework" class="requirement">○ Choose at least one redesign element</div>
+              </div>
+              <label for="frictionText">1 · What purposeful AI friction would you introduce?</label>
+              <textarea id="frictionText" rows="4" maxlength="3500" aria-describedby="frictionCount" placeholder="What thinking could AI bypass? How will the revised assignment make that thinking visible without adding arbitrary barriers?"></textarea>
+              <div id="frictionCount" class="field-count">0 / 15 minimum characters</div>
+              <label for="redesignText">2 · How would you redesign this assessment?</label>
+              <textarea id="redesignText" rows="4" maxlength="3500" aria-describedby="redesignCount" placeholder="Describe the assessment changes and why they support student learning and/or a reason to engage."></textarea>
+              <div id="redesignCount" class="field-count">0 / 15 minimum characters</div>
+              <fieldset class="framework-field" id="frameworkField"><legend>Which elements does your redesign address? (choose at least one)</legend><label><input type="checkbox" name="framework" value="practice"> Meaningful practice</label><label><input type="checkbox" name="framework" value="engage"> A reason to engage</label><label><input type="checkbox" name="framework" value="reasonable"> Reasonable conditions and friction</label></fieldset>
+              <div id="scenarioNotice" class="notice" role="status" aria-live="polite"></div>
+              <button class="cta fill" id="saveScenarioBtn" type="button">SAVE DESIGN & CONTINUE ➜</button>
+              <div id="saveFeedback" class="save-feedback" role="status" aria-live="polite">Complete the checklist above, then press Save Design &amp; Continue.</div>
+            </form>
+            <div class="boss-panel hidden" id="bossPanel">
+              <div class="boss-name">THE CHANCELLOR OF SHORTCUTS</div>
+              <p class="boss-dialogue" id="bossDialogue"></p>
+              <div class="encounter-roll"><div class="die-shape" id="dieValue">d20</div><div><button type="button" class="cta" id="rollBossBtn">ROLL THE d20</button><div class="die-manual"><label for="manualDie">or enter a physical roll:</label> <input id="manualDie" type="number" min="1" max="20" placeholder="1–20"><button type="button" id="useManualDie" class="minor-btn">Use</button></div></div></div>
+              <div id="bossChallenge" class="boss-challenge">Roll the die to reveal the Chancellor's attack.</div>
+              <label for="bossResponse">Defend your assessment redesign against the attack</label>
+              <textarea id="bossResponse" rows="5" maxlength="4000" placeholder="Explain how your proposed design protects student thinking, encourages engagement, and maintains reasonable demands."></textarea>
+              <div class="facilitator-panel"><h4>Facilitator judgment</h4><p>One person at the table facilitates scoring. The game does <strong>not</strong> evaluate written responses automatically.</p><label class="check-award"><input id="frictionAward" type="checkbox"> +10 KP — purposeful AI friction is defensible</label><label class="check-award"><input id="frameworkAward" type="checkbox"> +10 KP — at least one framework element is defensible</label><div id="scorePreview" class="score-preview">Proposed score: <strong>0 / 20 KP</strong></div></div>
+              <div id="bossNotice" class="notice" aria-live="polite"></div>
+              <button class="cta fill" type="button" id="submitBossBtn">CONFIRM JUDGMENT & COMPLETE YEAR</button>
+              <p id="bossRetryHelp" class="quiet"></p>
+            </div>
+            <div id="roomFooter" class="room-footer"><div class="generator-display"><div class="eyebrow">Brain Growth Chamber</div><div id="roomBrain" class="brain-home"></div><div id="brainStageName">Stage I · First Spark</div></div><div class="room-controls"><p id="roomFooterMessage">Complete three scenarios to face the Chancellor.</p><button type="button" class="minor-btn" id="quickReviewBtn">? Framework refresher</button></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRADUATION -->
+    <section id="graduationScreen" class="screen" aria-labelledby="gradTitle">
+      <div class="grad-layout center-wrap">
+        <div class="grad-heading"><div class="eyebrow">Year Four Complete · Final Encounter</div><h2 id="gradTitle" class="display-title">THE COMMENCEMENT TRIAL</h2><p>The Chancellor stands before the sealed gates. A polished transcript alone cannot open them.</p></div>
+        <div class="grad-grid">
+          <div class="panel grad-story"><div class="panel-heading">THE LAST QUESTION</div><div id="gradCharacter" class="char-mini"></div><p class="boss-dialogue">“Four years of submissions. Four years of shortcuts. How can anyone know your student has actually learned?”</p><p><strong>Your table must defend one final assessment decision.</strong> Draw upon the student's journey. Explain the learning you preserved, what purposeful AI friction made it visible, why the demands are reasonable or worthwhile, and one vulnerability that remains.</p><div id="gradBrain" class="brain-home grad-brain"></div></div>
+          <div class="panel grad-answer"><div class="panel-heading">FINAL DEGREE DEFENSE</div><label for="gradResponse">What would graduation-ready assessment look like for this student?</label><textarea id="gradResponse" rows="7" maxlength="5000" placeholder="Defend a concrete assessment decision, the intended learning, purposeful AI friction, at least one redesign element, and an honest limitation."></textarea><div class="facilitator-panel"><h4>Final facilitator judgment</h4><label class="check-award"><input id="gradFriction" type="checkbox"> +10 KP — purposeful AI friction</label><label class="check-award"><input id="gradFramework" type="checkbox"> +10 KP — at least one redesign element</label><div id="gradScorePreview" class="score-preview">Proposed score: <strong>0 / 20 KP</strong></div></div><div id="gradNotice" class="notice" aria-live="polite"></div><button id="submitGradBtn" class="cta fill" type="button">DELIVER FINAL JUDGMENT</button><button id="gradCampusBtn" class="minor-btn fill" type="button">← Campus / Revise Earlier Defenses</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VICTORY -->
+    <section id="victoryScreen" class="screen" aria-labelledby="victoryTitle">
+      <div class="center-wrap narrow victory-wrap"><div class="victory-shine" aria-hidden="true">✦</div><div class="eyebrow">Commencement Unlocked</div><h2 class="display-title" id="victoryTitle">THE DEGREE IS EARNED</h2><div class="diploma"><div class="diploma-inner"><div>CURSED UNIVERSITY</div><div class="diploma-star">✷</div><h3>Certificate of Understanding</h3><p id="diplomaName"></p><p>Through purposeful assessment design, defensible reasoning, and the courage to question shortcuts, this party has awakened the Brain of Understanding.</p><strong>100 / 100 KNOWLEDGE POINTS</strong></div></div><div class="button-row"><button class="cta" id="victoryCampusBtn" type="button">VIEW COMPLETED CAMPUS</button><button class="minor-btn" id="printDiplomaBtn" type="button">PRINT CERTIFICATE</button></div></div>
+    </section>
+  </main>
+
+  <dialog id="infoModal" class="info-dialog"><div class="modal-top"><h3 id="modalTitle">Framework refresher</h3><button id="closeInfoModal" class="minor-btn" type="button">✕</button></div><div id="modalBody"></div></dialog>
+  <div class="version-mark" id="versionMark">BUILD 1.2.0 · Starting game…</div>
+  <script type="application/json" id="metaInfo">{"build":"v1.2.0-direct-save","autosave":"localStorage","api":"none"}</script>
+</body>
+</html>
